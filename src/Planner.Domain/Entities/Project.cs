@@ -33,7 +33,7 @@ public class Project : IEntity
         
     }
 
-    public Project(string name, string documentation, List<Feature> features)
+    public Project(string name, string? documentation)
     {
         SetProjectName(name);
         SetDocumentation(documentation);
@@ -45,7 +45,7 @@ public class Project : IEntity
         Name = name;
     }
     
-    public void SetDocumentation(string documentation)
+    public void SetDocumentation(string? documentation)
     {
         Documentation = documentation;
     }

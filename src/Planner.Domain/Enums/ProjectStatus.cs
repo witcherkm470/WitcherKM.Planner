@@ -2,6 +2,7 @@
 
 public enum ProjectStatus
 {
-    Opened = 0,
-    Closed = 1
+    Undefined = 0,
+    Opened = 1,
+    Closed = 2
 }

@@ -2,7 +2,8 @@
 
 public enum FeatureStatus
 {
-    Opened = 0,
-    InProgress = 1,
-    Completed = 2
+    Undefined = 0,
+    Opened = 1,
+    InProgress = 2,
+    Completed = 3
 }

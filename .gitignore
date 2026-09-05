@@ -46,3 +46,19 @@ packages/
 # OS
 .DS_Store
 Thumbs.db
+
+# Frontend
+/scripts/node_modules/
+/scripts/dist/
+/scripts/dist-ssr/
+/scripts/logs/
+/scripts/**/*.log
+/scripts/**/*.local
+
+# Local environment configuration
+/scripts/.env
+/scripts/.env.*
+!/scripts/.env.example
+
+# IDE
+*.sln.DotSettings.user
