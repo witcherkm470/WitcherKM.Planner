@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner.Infrastructure", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner.Api", "src\Planner.Api\Planner.Api.csproj", "{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner.Application.Common", "src\Planner.Application.Common\Planner.Application.Common.csproj", "{7C798BC1-EA90-415A-9DE1-6D71121B85B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

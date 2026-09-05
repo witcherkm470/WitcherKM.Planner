@@ -6,4 +6,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="14.2.0" />
+      <PackageReference Include="WitcherKM.Common.Orm" Version="0.1.2" />
+      <PackageReference Include="WitcherKM.Common.Web" Version="0.1.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Planner.Application.Common\Planner.Application.Common.csproj" />
+      <ProjectReference Include="..\Planner.Infrastructure\Planner.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

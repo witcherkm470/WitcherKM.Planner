@@ -1,9 +1,10 @@
 ﻿using Planner.Domain.Enums;
-using Planner.Domain.Exceptions;
+using WitcherKM.Common.Domain.Entities.Abstractions;
+using WitcherKM.Common.Domain.Exceptions;
 
 namespace Planner.Domain.Entities;
 
-public class Feature
+public class Feature : IEntity
 {
     public long Id { get; private set;}
     

@@ -4,11 +4,13 @@
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>cc0529e8-d6f2-4a28-aa33-1cbc27e91be4</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,6 +22,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Planner.Infrastructure\Planner.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Planner.Application\Planner.Application.csproj"/>
     </ItemGroup>
 
 </Project>

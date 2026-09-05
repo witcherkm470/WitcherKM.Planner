@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
 
       var dbContext = scope.ServiceProvider
          .GetRequiredService<PlannerDbContext>();
-      
+
       await dbContext.Database.MigrateAsync();
    }
 

@@ -11,8 +11,7 @@ public class PlannerDbContext(DbContextOptions<PlannerDbContext> options) : DbCo
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(PlannerDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PlannerDbContext).Assembly);
 
         base.OnModelCreating(modelBuilder);
     }

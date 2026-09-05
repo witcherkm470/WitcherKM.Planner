@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="WitcherKM.Common.Domain" Version="0.1.2" />
+      <ProjectReference Include="..\Planner.Domain\Planner.Domain.csproj" />
     </ItemGroup>
 
 </Project>
