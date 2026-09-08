@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<defs><linearGradient id="quill-gradient" x1="4" y1="22" x2="20" y2="2" gradientUnits="userSpaceOnUse"><stop stop-color="#20C5DB"/><stop offset=".46" stop-color="#9A79EF"/><stop offset=".72" stop-color="#C66ADE"/><stop offset="1" stop-color="#EC6191"/></linearGradient></defs>
+<path d="M6.3 17.6C5.5 15.4 6.1 12.3 7.8 9.6L8 12.5 9.5 7.3C12.5 4.2 16.7 2.3 21.5 1.5C21.1 4.9 20.2 7.8 18.7 10.1L15.9 11.1 17.6 11.5C16.8 12.6 15.8 13.6 14.7 14.4L11.8 14.7 13.3 15.4C11.1 16.8 8.6 17.7 6.3 17.6Z" fill="url(#quill-gradient)"/>
+<path d="M3.5 22C7.1 16.1 11.4 10.6 18.9 4.3" stroke="#291E40" stroke-width="2.8" stroke-linecap="round"/>
+<path d="M3.5 22C7.1 16.1 11.4 10.6 18.9 4.3" stroke="#FFF4FF" stroke-width="1.25" stroke-linecap="round"/>
+</svg>

@@ -5,5 +5,5 @@ namespace Planner.Infrastructure.Repositories;
 
 public interface IProjectRepository : IEntityRepository<Project>
 {
-    
+    Task<IEnumerable<Project>> GetAllWithFeaturesAsync(CancellationToken cancellationToken);
 }

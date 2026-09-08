@@ -1,0 +1,133 @@
+﻿.tableWrapper {
+  width: 100%;
+  overflow: hidden;
+
+  background-color: #faf8ff;
+  border: 1px solid #d8cde7;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 6px rgba(41, 30, 64, 0.10),
+  0 8px 24px rgba(92, 65, 140, 0.08);
+}
+
+.projectsTable {
+  width: 100%;
+  margin: 0;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  color: #372b49;
+}
+
+.projectsTable thead {
+  background: linear-gradient(110deg, #25434d 0%, #40345e 46%, #50365f 75%, #59364e 100%
+  );
+}
+
+.projectsTable th {
+  padding: 14px 16px;
+
+  background-color: transparent;
+
+  color: #faf5ff;
+  font-weight: 600;
+  text-align: center;
+}
+
+.projectsTable tbody tr {
+  transition: background-color 0.15s ease;
+  background-color: #faf8ff;
+}
+
+.projectsTable tbody tr:hover {
+  background-color: #eee7f8;
+}
+
+.projectsTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.idColumn {
+  width: 5%;
+}
+
+.nameColumn {
+  width: 55%;
+}
+
+.featuresColumn {
+  width: 10%;
+}
+
+.statusColumn {
+  width: 10%;
+}
+
+.actionsColumn {
+  width: 15%;
+}
+
+.projectsTable td {
+  padding: 14px 16px;
+
+  color: #625570;
+  font-weight: 400;
+  text-align: center;
+
+  border-bottom: 1px solid #e5ddef;
+}
+
+.projectsTable th:nth-child(2),
+.projectsTable td:nth-child(2) {
+  text-align: left;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+
+  background-color: #f1eafa;
+  color: #594274;
+
+  border: 1px solid #d6c8e7;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: background-color 0.15s ease,
+  border-color 0.15s ease,
+  color 0.15s ease,
+  transform 0.1s ease;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+}
+
+.editButton:hover {
+  background-color: #f8dc52;
+  border-color: #edc745;
+}
+
+.deleteButton:hover {
+  background-color: #ff5e5e;
+  border-color: #f33e3e;
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}

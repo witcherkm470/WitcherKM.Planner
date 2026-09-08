@@ -21,6 +21,6 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
         builder.HasMany(x => x.Features)
             .WithOne()
             .HasForeignKey(x => x.ProjectId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

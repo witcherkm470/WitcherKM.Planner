@@ -8,8 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="14.2.0" />
-      <PackageReference Include="WitcherKM.Common.Orm" Version="0.1.2" />
-      <PackageReference Include="WitcherKM.Common.Web" Version="0.1.2" />
+      <PackageReference Include="WitcherKM.Common.Orm" Version="0.1.3" />
     </ItemGroup>
 
     <ItemGroup>

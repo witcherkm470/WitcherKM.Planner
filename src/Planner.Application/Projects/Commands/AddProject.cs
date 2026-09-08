@@ -9,9 +9,9 @@ namespace Planner.Application.Projects.Commands;
 
 public class AddProject
 {
-    public record Query(string Name, string? Documentation) : IRequest<ProjectModel>;
+    public record Command(string Name, string? Documentation) : IRequest<ProjectModel>;
     
-    public class Handler : IRequestHandler<Query, ProjectModel>
+    public class Handler : IRequestHandler<Command, ProjectModel>
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IProjectRepository _projectRepository;
@@ -22,7 +22,7 @@ public class AddProject
             _projectRepository = projectRepository;
         }
 
-        public async Task<ProjectModel> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ProjectModel> Handle(Command request, CancellationToken cancellationToken)
         {
             using var unitOfWork = _unitOfWorkManager.Create();
 

@@ -17,9 +17,16 @@ public class ProjectsController(IMediator mediator) : ControllerBase
         return await mediator.Send(new GetProjects.Query());
     }
 
-    [HttpPost("add-projects", Name = "AddProject")]
+    [HttpPost("add-project", Name = "AddProject")]
     public async Task<ProjectModel> AddProject([FromBody] AddProjectRequest request)
     {
-        return await mediator.Send(new AddProject.Query(request.Name, request.Documentation));
+        return await mediator.Send(new AddProject.Command(request.Name, request.Documentation));
+    }
+    
+    [HttpDelete("remove-project", Name = "RemoveProject")]
+    public async Task<IActionResult> RemoveProject([FromQuery] RemoveProjectRequest request)
+    {
+        await mediator.Send(new RemoveProject.Command(request.ProjectId));
+        return NoContent();
     }
 }
