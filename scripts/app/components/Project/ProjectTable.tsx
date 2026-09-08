@@ -11,7 +11,7 @@ export default function RenderProjectTable({projects, onDelete} : ProjectTablePr
     const projectsTable = projects.map(project => <tr key={project.id}>
         <td>{project.id}</td>
         <td>{project.name}</td>
-        <td>{project.unclosedFeaturesCount}</td>
+        <td>{project.description}</td>
         <td>{ProjectStatusLabel[project.projectStatus]}</td>
         <td>
             <div className={styles.actions}>
@@ -39,7 +39,7 @@ export default function RenderProjectTable({projects, onDelete} : ProjectTablePr
         <colgroup>
             <col className={styles.idColumn} />
             <col className={styles.nameColumn} />
-            <col className={styles.featuresColumn} />
+            <col className={styles.descriptionColumn} />
             <col className={styles.statusColumn} />
             <col className={styles.actionsColumn} />
         </colgroup>
@@ -47,7 +47,7 @@ export default function RenderProjectTable({projects, onDelete} : ProjectTablePr
         <tr>
             <th>Id</th>
             <th>Название</th>
-            <th>Открытые фичи</th>
+            <th>Краткое описание проекта</th>
             <th>Статус</th>
             <th>Действия</th>
         </tr>

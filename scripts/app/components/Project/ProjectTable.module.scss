@@ -53,11 +53,11 @@
 }
 
 .nameColumn {
-  width: 55%;
+  width: 25%;
 }
 
-.featuresColumn {
-  width: 10%;
+.descriptionColumnColumn {
+  width: 45%;
 }
 
 .statusColumn {
@@ -79,7 +79,9 @@
 }
 
 .projectsTable th:nth-child(2),
-.projectsTable td:nth-child(2) {
+.projectsTable td:nth-child(2),
+.projectsTable th:nth-child(3),
+.projectsTable td:nth-child(3){
   text-align: left;
 }
 

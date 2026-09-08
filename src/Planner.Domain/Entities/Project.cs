@@ -19,6 +19,8 @@ public class Project : IEntity
             field = value;
         }
     }
+    
+    public string? Description { get; private set; }
 
     public string? Documentation { get; private set; }
     
@@ -33,24 +35,30 @@ public class Project : IEntity
         
     }
 
-    public Project(string name, string? documentation)
+    public Project(string name, string? description, string? documentation)
     {
         SetProjectName(name);
+        SetDescription(description);
         SetDocumentation(documentation);
         SetProjectOpened();
     }
 
-    public void SetProjectName(string name)
+    private void SetProjectName(string name)
     {
         Name = name;
     }
     
-    public void SetDocumentation(string? documentation)
+    private void SetDescription(string? description)
+    {
+        Description = description;
+    }
+    
+    private void SetDocumentation(string? documentation)
     {
         Documentation = documentation;
     }
 
-    public void SetProjectOpened()
+    private void SetProjectOpened()
     {
         if(ProjectStatus == ProjectStatus.Opened)
             throw new DomainException("Project is opened");

@@ -9,7 +9,7 @@ namespace Planner.Application.Projects.Commands;
 
 public class AddProject
 {
-    public record Command(string Name, string? Documentation) : IRequest<ProjectModel>;
+    public record Command(string Name, string? Description, string? Documentation) : IRequest<ProjectModel>;
     
     public class Handler : IRequestHandler<Command, ProjectModel>
     {
@@ -26,7 +26,7 @@ public class AddProject
         {
             using var unitOfWork = _unitOfWorkManager.Create();
 
-            var project = new Project(request.Name, request.Documentation);
+            var project = new Project(request.Name, request.Description, request.Documentation);
             
             await _projectRepository.AddAsync(project, cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);  

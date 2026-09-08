@@ -3,7 +3,7 @@
 export interface ProjectModel {
     id: number;
     name: string;
-    unclosedFeaturesCount: number;
+    description: string;
     projectStatus: ProjectStatus
 }
 

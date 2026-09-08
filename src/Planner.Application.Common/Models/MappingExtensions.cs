@@ -11,7 +11,7 @@ public static class MappingExtensions
         {
             Id = project.Id,
             Name = project.Name,
-            UnclosedFeaturesCount = project.Features.Count,
+            Description = project.Description,
             ProjectStatus = project.ProjectStatus,
         };
     }
