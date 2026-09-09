@@ -1,31 +1,39 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect } from "react";
 import ProjectTable from "../../components/Project/ProjectTable.tsx";
-import type { ProjectModel } from "../../api/models/project/ProjectModel.ts";
 import {getProjects, deleteProject} from "../../api/apis/project/projectApi.ts"
+import {useApiRequest} from "../../hooks/useApiRequest.ts";
+import ErrorModal from "../../components/Modal/ErrorModal.tsx";
 
 
 export function RenderProjectsPage() {
-    const [projects, setProjects] = useState<ProjectModel[]>([]);
+    const {
+        execute: loadProjects,
+        data: projects
+    } = useApiRequest(getProjects);
 
-    async function loadProjects() {
-        const response = await getProjects();
-        setProjects(response);
-    }
-
-    async function handleDelete(projectId: number) {
-        await deleteProject(projectId);
-        const projects = await getProjects();
-        setProjects(projects);
-    }
+    const {
+        execute: deleteProjectById,
+        error: deleteProjectError,
+        clearError: clearDeletionError,
+    } = useApiRequest(deleteProject, {onSuccess: loadProjects});
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        loadProjects();
-    }, []);
+        void loadProjects();
+    }, [loadProjects]);
 
     return (
-        <ProjectTable projects={projects}
-                            onDelete={handleDelete}/>
-    );
+        <>
+            <ProjectTable
+                projects={projects ?? []}
+                onDelete={deleteProjectById}
+            />
 
+            {deleteProjectError && (
+                <ErrorModal
+                    message={deleteProjectError.message}
+                    onClose={clearDeletionError}
+                />
+            )}
+        </>
+    );
 }
