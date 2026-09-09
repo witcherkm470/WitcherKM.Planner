@@ -8,7 +8,7 @@ using Planner.Application.Projects.Query;
 namespace Planner.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/projects")]
 public class ProjectsController(IMediator mediator) : ControllerBase
 {
     [HttpGet("get-projects", Name = "GetProjects")]

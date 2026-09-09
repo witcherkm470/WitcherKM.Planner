@@ -2,8 +2,8 @@
 using Planner.Application.Common.Exceptions;
 using Planner.Domain.Entities;
 using Planner.Infrastructure.Repositories;
+using WitcherKM.Common.Core.Exceptions;
 using WitcherKM.Common.Orm.Abstractions;
-using WitcherKM.Common.Orm.Exceptions;
 
 namespace Planner.Application.Projects.Commands;
 
@@ -31,7 +31,7 @@ public class RemoveProject
             var project = await _projectRepository.GetByIdAsync(request.ProjectId, cancellationToken);
             
             if(project is null)
-                throw new EntityNotFoundException(nameof(Project), request.ProjectId);
+                throw new EntityNotFoundException(request.ProjectId, $"Entity {nameof(Project)} with id {request.ProjectId} does not exist");
             
             var isAnyFeaturesForProject = await _featureRepository.AnyExistsByProjectIdAsync(project.Id, cancellationToken);
             if (isAnyFeaturesForProject)

@@ -6,7 +6,7 @@ interface ProjectTableProps {
     onDelete: (projectId: number) => void;
 }
 
-export default function RenderProjectTable({projects, onDelete} : ProjectTableProps) {
+export default function ProjectTable({projects, onDelete} : ProjectTableProps) {
 
     const projectsTable = projects.map(project => <tr key={project.id}>
         <td>{project.id}</td>

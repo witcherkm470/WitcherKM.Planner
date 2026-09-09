@@ -1,6 +1,7 @@
 using Planner.Api.DI;
 using Planner.Application.DI;
 using Planner.Infrastructure.DI;
+using WitcherKM.Common.Core.MiddleWare;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSharedConfiguration();
@@ -20,6 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 app.UseHttpsRedirection();
+app.UseCustomExceptionMiddleware();
 await app.ApplyDatabaseMigrationsAsync();
 
 app.Run();

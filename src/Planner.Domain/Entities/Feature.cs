@@ -1,6 +1,6 @@
 ﻿using Planner.Domain.Enums;
 using WitcherKM.Common.Domain.Entities.Abstractions;
-using WitcherKM.Common.Domain.Exceptions;
+using WitcherKM.Common.Core.Exceptions;
 
 namespace Planner.Domain.Entities;
 

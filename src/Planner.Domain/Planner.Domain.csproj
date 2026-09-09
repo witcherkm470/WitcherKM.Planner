@@ -7,7 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="WitcherKM.Common.Domain" Version="0.1.2" />
+        <PackageReference Include="WitcherKM.Common.Domain" Version="0.1.5" />
+        <PackageReference Include="WitcherKM.Common.Core" Version="0.1.5" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,9 @@
 
 namespace Planner.Api.Controllers;
 
-public class FeatureController : Controller
+[ApiController]
+[Route("api/features")]
+public class FeatureController : ControllerBase
 {
     
 }

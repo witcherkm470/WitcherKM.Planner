@@ -1,35 +1,21 @@
 ﻿import { useEffect, useState } from "react";
-import RenderProjectTable from "../../components/Project/ProjectTable.tsx";
+import ProjectTable from "../../components/Project/ProjectTable.tsx";
 import type { ProjectModel } from "../../api/models/project/ProjectModel.ts";
+import {getProjects, deleteProject} from "../../api/apis/project/projectApi.ts"
 
 
 export function RenderProjectsPage() {
     const [projects, setProjects] = useState<ProjectModel[]>([]);
 
     async function loadProjects() {
-        const response = await fetch(
-            "/api/Projects/get-projects"
-        );
-
-        if (!response.ok) {
-            throw new Error(`Failed to load projects: ${response.status}`);
-        }
-
-        const data: ProjectModel[] = await response.json();
-
-        setProjects(data);
+        const response = await getProjects();
+        setProjects(response);
     }
 
-    async function deleteProject(projectId: number) {
-        const response = await fetch(`/api/Projects/remove-project?ProjectId=${projectId}`, {
-            method: "DELETE",
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to delete project: ${response.status}`);
-        }
-
-        await loadProjects();
+    async function handleDelete(projectId: number) {
+        await deleteProject(projectId);
+        const projects = await getProjects();
+        setProjects(projects);
     }
 
     useEffect(() => {
@@ -38,8 +24,8 @@ export function RenderProjectsPage() {
     }, []);
 
     return (
-        <RenderProjectTable projects={projects}
-                            onDelete={deleteProject}/>
+        <ProjectTable projects={projects}
+                            onDelete={handleDelete}/>
     );
 
 }
