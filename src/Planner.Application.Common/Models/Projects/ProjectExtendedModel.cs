@@ -3,4 +3,5 @@
 public class ProjectExtendedModel : ProjectModel
 {
     public string? Documentation { get; init; }
+    public int OpenedFeatureCount { get; init; }
 }

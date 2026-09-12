@@ -13,9 +13,9 @@
 }
 
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
 
   gap: 24px;
 
@@ -34,8 +34,6 @@
 }
 
 .titleArea {
-  flex: 1;
-
   min-width: 0;
 }
 
@@ -62,11 +60,40 @@
   font-weight: 600;
 }
 
+.headerCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .headerActions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 
   gap: 10px;
+}
+
+.featureCountBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 125px;
+
+  padding: 7px 13px;
+
+  background-color: rgba(224, 242, 245, 0.12);
+
+  border: 1px solid rgba(172, 215, 222, 0.42);
+  border-radius: 999px;
+
+  color: #d9f1f4;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
 }
 
 .editButton {
@@ -86,15 +113,20 @@
 
   cursor: pointer;
 
+  box-shadow: none;
+
   transition:
           background-color 0.15s ease,
           border-color 0.15s ease,
+          box-shadow 0.15s ease,
           transform 0.1s ease;
 }
 
 .editButton img {
   width: 24px;
   height: 24px;
+
+  display: block;
 }
 
 .editButton:hover {
@@ -102,12 +134,23 @@
   border-color: #edc745;
 }
 
-.editButtonActive {
+/*
+  ВАЖНО:
+  повышенная специфичность специально,
+  чтобы активное состояние не перебивалось .editButton
+*/
+.editButton.editButtonActive {
   background-color: #f8dc52;
   border-color: #edc745;
 
   box-shadow:
-          0 0 0 2px rgba(248, 220, 82, 0.18);
+          0 0 0 2px rgba(248, 220, 82, 0.20),
+          0 3px 10px rgba(237, 199, 69, 0.18);
+}
+
+.editButton.editButtonActive:hover {
+  background-color: #f8dc52;
+  border-color: #edc745;
 }
 
 .editButton:active {
@@ -147,6 +190,10 @@
           box-shadow 0.15s ease;
 }
 
+.titleInput:hover {
+  border-color: rgba(255, 255, 255, 0.46);
+}
+
 .titleInput:focus {
   background-color: rgba(255, 255, 255, 0.16);
 
@@ -154,34 +201,6 @@
 
   box-shadow:
           0 0 0 3px rgba(199, 179, 255, 0.14);
-}
-
-.statusSelect {
-  min-width: 120px;
-
-  padding: 8px 10px;
-
-  background-color: #fffaff;
-
-  border: 1px solid #d8cde7;
-  border-radius: 8px;
-
-  color: #4c3d5d;
-
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-
-  outline: none;
-
-  cursor: pointer;
-}
-
-.statusSelect:focus {
-  border-color: #9a79ef;
-
-  box-shadow:
-          0 0 0 3px rgba(154, 121, 239, 0.13);
 }
 
 .content {

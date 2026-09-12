@@ -2,4 +2,5 @@
 
 export interface ProjectExtendedModel extends ProjectModel {
     documentation: string;
+    openedFeatureCount: number;
 }

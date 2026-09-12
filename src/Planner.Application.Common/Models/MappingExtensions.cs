@@ -16,7 +16,7 @@ public static class MappingExtensions
         };
     }
     
-    public static ProjectExtendedModel ToProjectExtendedModel(this Project project)
+    public static ProjectExtendedModel ToProjectExtendedModel(this Project project, int openedFeaturesCount)
     {
         return new ProjectExtendedModel
         {
@@ -25,6 +25,7 @@ public static class MappingExtensions
             Description = project.Description,
             ProjectStatus = project.ProjectStatus,
             Documentation =  project.Documentation,
+            OpenedFeatureCount = openedFeaturesCount
         };
     }
 }

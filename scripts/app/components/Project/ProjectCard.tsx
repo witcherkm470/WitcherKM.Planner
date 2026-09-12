@@ -67,7 +67,6 @@ export default function ProjectCard({
 
     function enableEditing() {
         resetChanges();
-
         onEditingChange(true);
     }
 
@@ -103,7 +102,6 @@ export default function ProjectCard({
 
     function saveAndCloseConfirmation() {
         setIsConfirmOpen(false);
-
         saveChanges();
     }
 
@@ -150,6 +148,12 @@ export default function ProjectCard({
                                 {project.name}
                             </h1>
                         )}
+                    </div>
+
+                    <div className={styles.headerCenter}>
+                        <span className={styles.featureCountBadge}>
+                            Открытых фич: {project.openedFeatureCount}
+                        </span>
                     </div>
 
                     <div className={styles.headerActions}>

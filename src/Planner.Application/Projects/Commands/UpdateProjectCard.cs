@@ -16,11 +16,13 @@ public class UpdateProjectCard
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IProjectRepository _projectRepository;
+        private readonly IFeatureRepository _featureRepository;
 
-        public Handler(IUnitOfWorkManager unitOfWorkManager, IProjectRepository projectRepository)
+        public Handler(IUnitOfWorkManager unitOfWorkManager, IProjectRepository projectRepository, IFeatureRepository featureRepository)
         {
             _unitOfWorkManager = unitOfWorkManager;
             _projectRepository = projectRepository;
+            _featureRepository = featureRepository;
         }
 
         public async Task<ProjectExtendedModel> Handle(Command request, CancellationToken cancellationToken)
@@ -36,7 +38,9 @@ public class UpdateProjectCard
             project.SetDocumentation(request.Documentation);
             await unitOfWork.CommitAsync(cancellationToken);  
             
-            return project.ToProjectExtendedModel();
+            var openedFeaturesCount = await _featureRepository.GetOpenedFeaturesCountByProjectIdAsync(request.ProjectId, cancellationToken);
+
+            return project.ToProjectExtendedModel(openedFeaturesCount);
         }
     }
 }
