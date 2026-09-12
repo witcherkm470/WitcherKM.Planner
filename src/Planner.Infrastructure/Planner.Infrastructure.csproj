@@ -18,6 +18,7 @@
 
 
     <ItemGroup>
+        <ProjectReference Include="..\Planner.Application.Common\Planner.Application.Common.csproj" />
         <ProjectReference Include="..\Planner.Domain\Planner.Domain.csproj"/>
     </ItemGroup>
 

@@ -17,10 +17,5 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
 
         builder.Property(x => x.ProjectStatus)
             .IsRequired();
-
-        builder.HasMany(x => x.Features)
-            .WithOne()
-            .HasForeignKey(x => x.ProjectId)
-            .OnDelete(DeleteBehavior.NoAction);
     }
 }

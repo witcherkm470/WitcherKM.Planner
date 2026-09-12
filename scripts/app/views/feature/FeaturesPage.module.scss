@@ -1,0 +1,16 @@
+﻿.page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  gap: 12px;
+}
+
+.saving {
+  color: #625570;
+
+  font-size: 13px;
+
+  text-align: right;
+}

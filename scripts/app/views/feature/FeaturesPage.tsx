@@ -1,7 +1,118 @@
-﻿export default function FeaturesPage() {
+﻿import { useEffect, useState } from "react";
+
+import FeatureTable
+    from "../../components/Feature/FeatureTable.tsx";
+
+import FeaturesToolbar
+    from "../../components/Feature/FeaturesToolbar.tsx";
+
+import CreateFeatureModal
+    from "../../components/Modal/Feature/CreateFeatureModal.tsx";
+
+import ErrorModal
+    from "../../components/Modal/ErrorModal.tsx";
+
+import {addFeature, getFeatures, getProjectNameAndIds} from "../../api/apis/feature/featureApi.ts";
+
+import {
+    useApiRequest
+} from "../../hooks/useApiRequest.ts";
+
+import styles from "./FeaturesPage.module.scss";
+
+export default function FeaturesPage() {
+    const [isCreateModalOpen, setIsCreateModalOpen] =
+        useState(false);
+
+    const {
+        execute: loadFeatures,
+        data: features,
+        error: loadFeaturesError,
+        clearError: clearLoadFeaturesError
+    } = useApiRequest(getFeatures);
+
+    const {
+        execute: loadProjects,
+        data: projects,
+        error: loadProjectsError,
+        clearError: clearLoadProjectsError
+    } = useApiRequest(getProjectNameAndIds);
+
+    const {
+        execute: createFeature,
+        error: createFeatureError,
+        clearError: clearCreateFeatureError,
+        isLoading: isFeatureCreating
+    } = useApiRequest(addFeature, {
+        onSuccess: async () => {
+            setIsCreateModalOpen(false);
+
+            await loadFeatures();
+        }
+    });
+
+    useEffect(() => {
+        void loadFeatures();
+        void loadProjects();
+    }, [
+        loadFeatures,
+        loadProjects
+    ]);
+
     return (
-        <div>
-            Features
+        <div className={styles.page}>
+            <FeaturesToolbar
+                onAdd={() =>
+                    setIsCreateModalOpen(true)
+                }
+            />
+
+            <FeatureTable
+                features={features ?? []}
+            />
+
+            {isCreateModalOpen && (
+                <CreateFeatureModal
+                    projects={projects ?? []}
+                    onClose={() =>
+                        setIsCreateModalOpen(false)
+                    }
+                    onSave={(name, description, projectId) =>
+                        void createFeature({
+                            name,
+                            description,
+                            projectId
+                        })
+                    }
+                />
+            )}
+
+            {isFeatureCreating && (
+                <div className={styles.saving}>
+                    Создание фичи...
+                </div>
+            )}
+
+            {loadFeaturesError && (
+                <ErrorModal
+                    message={loadFeaturesError.message}
+                    onClose={clearLoadFeaturesError}
+                />
+            )}
+
+            {loadProjectsError && (
+                <ErrorModal
+                    message={loadProjectsError.message}
+                    onClose={clearLoadProjectsError}
+                />
+            )}
+
+            {createFeatureError && (
+                <ErrorModal
+                    message={createFeatureError.message}
+                    onClose={clearCreateFeatureError}
+                />
+            )}
         </div>
     );
 }

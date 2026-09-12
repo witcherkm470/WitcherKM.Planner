@@ -1,22 +1,44 @@
 ﻿import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import ProjectCard from "../../components/Project/ProjectCard.tsx";
-import ErrorModal from "../../components/Modal/ErrorModal.tsx";
+import ProjectCard
+    from "../../components/Project/ProjectCard.tsx";
+
+import ProjectFeaturesTable
+    from "../../components/Project/ProjectFeaturesTable.tsx";
+
+import CreateProjectFeatureModal
+    from "../../components/Modal/Feature/CreateProjectFeatureModal.tsx";
+
+import ErrorModal
+    from "../../components/Modal/ErrorModal.tsx";
 
 import {
     getProjectById,
+    getProjectFeatures,
     updateProjectCard
 } from "../../api/apis/project/projectApi.ts";
 
-import { useApiRequest } from "../../hooks/useApiRequest.ts";
+import {
+    addFeature
+} from "../../api/apis/feature/featureApi.ts";
+
+import {
+    useApiRequest
+} from "../../hooks/useApiRequest.ts";
 
 import styles from "./ProjectPage.module.scss";
 
 export default function ProjectPage() {
     const { projectId } = useParams();
 
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] =
+        useState(false);
+
+    const [
+        isCreateFeatureModalOpen,
+        setIsCreateFeatureModalOpen
+    ] = useState(false);
 
     const {
         execute: loadProject,
@@ -25,6 +47,13 @@ export default function ProjectPage() {
         clearError: clearLoadProjectError,
         isLoading: isProjectLoading
     } = useApiRequest(getProjectById);
+
+    const {
+        execute: loadProjectFeatures,
+        data: projectFeatures,
+        error: projectFeaturesError,
+        clearError: clearProjectFeaturesError
+    } = useApiRequest(getProjectFeatures);
 
     const {
         execute: updateProject,
@@ -39,6 +68,27 @@ export default function ProjectPage() {
         }
     });
 
+    const {
+        execute: createFeature,
+        error: createFeatureError,
+        clearError: clearCreateFeatureError
+    } = useApiRequest(addFeature, {
+        onSuccess: async () => {
+            setIsCreateFeatureModalOpen(false);
+
+            const id = Number(projectId);
+
+            if (Number.isNaN(id)) {
+                return;
+            }
+
+            await Promise.all([
+                loadProject(id),
+                loadProjectFeatures(id)
+            ]);
+        }
+    });
+
     useEffect(() => {
         const id = Number(projectId);
 
@@ -47,7 +97,12 @@ export default function ProjectPage() {
         }
 
         void loadProject(id);
-    }, [projectId, loadProject]);
+        void loadProjectFeatures(id);
+    }, [
+        projectId,
+        loadProject,
+        loadProjectFeatures
+    ]);
 
     return (
         <main className={styles.page}>
@@ -74,6 +129,34 @@ export default function ProjectPage() {
                 />
             )}
 
+            <ProjectFeaturesTable
+                features={projectFeatures ?? []}
+                onAdd={() =>
+                    setIsCreateFeatureModalOpen(true)
+                }
+            />
+
+            {isCreateFeatureModalOpen && project && (
+                <CreateProjectFeatureModal
+                    projectName={project.name}
+                    onClose={() =>
+                        setIsCreateFeatureModalOpen(false)
+                    }
+                    onSave={(name, description) =>
+                        void createFeature({
+                            name,
+                            description,
+
+                            /*
+                              Тут именно ID ТЕКУЩЕГО проекта.
+                              Пользователь ничего не выбирает.
+                            */
+                            projectId: project.id
+                        })
+                    }
+                />
+            )}
+
             {loadProjectError && (
                 <ErrorModal
                     message={loadProjectError.message}
@@ -85,6 +168,20 @@ export default function ProjectPage() {
                 <ErrorModal
                     message={updateProjectError.message}
                     onClose={clearUpdateProjectError}
+                />
+            )}
+
+            {projectFeaturesError && (
+                <ErrorModal
+                    message={projectFeaturesError.message}
+                    onClose={clearProjectFeaturesError}
+                />
+            )}
+
+            {createFeatureError && (
+                <ErrorModal
+                    message={createFeatureError.message}
+                    onClose={clearCreateFeatureError}
                 />
             )}
         </main>

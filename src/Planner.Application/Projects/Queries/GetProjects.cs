@@ -3,7 +3,7 @@ using Planner.Application.Common.Models;
 using Planner.Application.Common.Models.Projects;
 using Planner.Infrastructure.Repositories;
 
-namespace Planner.Application.Projects.Query;
+namespace Planner.Application.Projects.Queries;
 
 public class GetProjects
 {

@@ -9,6 +9,8 @@ public class Feature : IEntity
     public long Id { get; private set;}
     
     public long ProjectId { get; private set; }
+    
+    public Project Project { get; private set; } = null!;
 
     public string Name
     {
@@ -31,11 +33,12 @@ public class Feature : IEntity
         
     }
 
-    public Feature(string name, string description)
+    public Feature(string name, string? description, long projectId)
     {
         SetFeatureName(name);
         SetDescription(description);
-        SetFeatureInProgress();
+        ProjectId = projectId;
+        FeatureStatus =  FeatureStatus.Opened;
     }
     
     public void SetFeatureName(string featureName)
@@ -43,7 +46,7 @@ public class Feature : IEntity
         Name = featureName;
     }
 
-    public void SetDescription(string description)
+    public void SetDescription(string? description)
     {
         Description = description;
     }

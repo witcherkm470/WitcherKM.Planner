@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Planner.Api.Models;
+using Planner.Api.Models.Project;
 using Planner.Application.Common.Models.Projects;
 using Planner.Application.Projects.Commands;
-using Planner.Application.Projects.Query;
+using Planner.Application.Projects.Queries;
 
 namespace Planner.Api.Controllers;
 
@@ -46,5 +47,17 @@ public class ProjectsController(IMediator mediator) : ControllerBase
     public async Task<ProjectExtendedModel> UpdateProjectCard([FromBody] UpdateProjectCardRequest request)
     {
         return await mediator.Send(new UpdateProjectCard.Command(request.ProjectId, request.Name, request.Description, request.Documentation));
+    }
+    
+    [HttpGet("get-project-features", Name = "GetProjectFeatures")]
+    public async Task<IEnumerable<ProjectFeaturesModel>> GetProjectFeatures([FromQuery] long projectId)
+    {
+        return await mediator.Send(new GetProjectFeatures.Query(projectId));
+    }
+    
+    [HttpGet("get-project-name-and-ids", Name = "GetProjectNameAndIds")]
+    public async Task<IEnumerable<ProjectNameIdModel>> GetProjectNameAndIds()
+    {
+        return await mediator.Send(new GetProjectNameAndIds.Query());
     }
 }

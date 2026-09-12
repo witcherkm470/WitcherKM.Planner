@@ -1,17 +1,17 @@
-﻿import styles from "./ProjectsToolbar.module.scss";
+﻿import styles from "./FeaturesToolbar.module.scss";
 
-interface ProjectsToolbarProps {
+interface FeaturesToolbarProps {
     onAdd: () => void;
 }
 
-export default function ProjectsToolbar({
+export default function FeaturesToolbar({
                                             onAdd
-                                        }: ProjectsToolbarProps) {
+                                        }: FeaturesToolbarProps) {
     return (
         <div className={styles.toolbar}>
             <div className={styles.leftArea}>
                 <div className={styles.titleBadge}>
-                    Проекты
+                    Фичи
                 </div>
 
                 <div className={styles.filtersArea}>
@@ -28,7 +28,7 @@ export default function ProjectsToolbar({
                     +
                 </span>
 
-                Добавить проект
+                Добавить фичу
             </button>
         </div>
     );

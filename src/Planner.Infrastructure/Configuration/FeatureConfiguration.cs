@@ -17,5 +17,11 @@ public class FeatureConfiguration: IEntityTypeConfiguration<Feature>
 
         builder.Property(x => x.FeatureStatus)
             .IsRequired();
+        
+        builder
+            .HasOne(feature => feature.Project)
+            .WithMany(project => project.Features)
+            .HasForeignKey(feature => feature.ProjectId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -5,7 +5,7 @@ using Planner.Domain.Entities;
 using Planner.Infrastructure.Repositories;
 using WitcherKM.Common.Core.Exceptions;
 
-namespace Planner.Application.Projects.Query;
+namespace Planner.Application.Projects.Queries;
 
 public class GetProjectById
 {

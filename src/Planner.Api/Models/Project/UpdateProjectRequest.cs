@@ -1,4 +1,4 @@
-﻿namespace Planner.Api.Models;
+﻿namespace Planner.Api.Models.Project;
 
 public class UpdateProjectRequest
 {

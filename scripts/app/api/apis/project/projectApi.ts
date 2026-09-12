@@ -4,6 +4,7 @@ import type {UpdateProjectRequest} from "../../models/project/requests/UpdatePro
 import type {AddProjectRequest} from "../../models/project/requests/AddProjectRequest.ts";
 import type {ProjectExtendedModel} from "../../models/project/ProjectExtendedModel.ts";
 import type {UpdateProjectCardRequest} from "../../models/project/requests/UpdateProjectCardRequest.ts";
+import type {ProjectFeaturesModel} from "../../models/project/ProjectFeaturesModel.ts";
 
 export async function getProjects(): Promise<ProjectModel[]> {
     const response = await apiClient.get<ProjectModel[]>(
@@ -49,6 +50,14 @@ export async function updateProjectCard(request: UpdateProjectCardRequest): Prom
     const response = await apiClient.put<ProjectExtendedModel>(
         "/projects/update-project-card",
         request
+    );
+
+    return response.data;
+}
+
+export async function getProjectFeatures(projectId: number): Promise<ProjectFeaturesModel[]> {
+    const response = await apiClient.get<ProjectFeaturesModel[]>(
+        `/projects/get-project-features?ProjectId=${projectId}`
     );
 
     return response.data;
