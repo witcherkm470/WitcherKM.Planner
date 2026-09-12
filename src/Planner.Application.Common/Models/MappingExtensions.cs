@@ -15,4 +15,16 @@ public static class MappingExtensions
             ProjectStatus = project.ProjectStatus,
         };
     }
+    
+    public static ProjectExtendedModel ToProjectExtendedModel(this Project project)
+    {
+        return new ProjectExtendedModel
+        {
+            Id = project.Id,
+            Name = project.Name,
+            Description = project.Description,
+            ProjectStatus = project.ProjectStatus,
+            Documentation =  project.Documentation,
+        };
+    }
 }

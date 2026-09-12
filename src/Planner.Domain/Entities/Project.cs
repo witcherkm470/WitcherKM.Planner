@@ -35,11 +35,10 @@ public class Project : IEntity
         
     }
 
-    public Project(string name, string? description, string? documentation)
+    public Project(string name, string? description)
     {
         SetProjectName(name);
         SetDescription(description);
-        SetDocumentation(documentation);
         SetProjectOpened();
     }
 
@@ -53,7 +52,7 @@ public class Project : IEntity
         Description = description;
     }
     
-    private void SetDocumentation(string? documentation)
+    public void SetDocumentation(string? documentation)
     {
         Documentation = documentation;
     }
@@ -87,5 +86,11 @@ public class Project : IEntity
                 "Cannot add feature to closed project");
         
         _features.Add(feature);
+    }
+
+    public void Update(string name, string? description)
+    {
+        SetProjectName(name);
+        SetDescription(description);
     }
 }

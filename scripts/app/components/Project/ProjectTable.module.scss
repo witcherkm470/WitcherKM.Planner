@@ -36,6 +36,7 @@
 }
 
 .projectsTable tbody tr {
+  cursor: pointer;
   transition: background-color 0.15s ease;
   background-color: #faf8ff;
 }
@@ -48,20 +49,16 @@
   border-bottom: none;
 }
 
-.idColumn {
-  width: 5%;
-}
-
 .nameColumn {
-  width: 25%;
+  width: 20%;
 }
 
 .descriptionColumnColumn {
-  width: 45%;
+  width: 50%;
 }
 
 .statusColumn {
-  width: 10%;
+  width: 15%;
 }
 
 .actionsColumn {
@@ -78,10 +75,10 @@
   border-bottom: 1px solid #e5ddef;
 }
 
+.projectsTable th:nth-child(1),
+.projectsTable td:nth-child(1),
 .projectsTable th:nth-child(2),
-.projectsTable td:nth-child(2),
-.projectsTable th:nth-child(3),
-.projectsTable td:nth-child(3){
+.projectsTable td:nth-child(2){
   text-align: left;
 }
 
@@ -132,4 +129,39 @@
 
 .actionButton:active {
   transform: translateY(0);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 90px;
+
+  padding: 5px 10px;
+
+  border: 1px solid;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1;
+
+  transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+}
+
+.statusInProgress {
+  background-color: #e0f2f5;
+  border-color: #acd7de;
+  color: #326b75;
+}
+
+.statusCompleted {
+  background-color: #e8def6;
+  border-color: #bda7dc;
+  color: #5b3f82;
 }

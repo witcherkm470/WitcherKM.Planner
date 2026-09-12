@@ -20,7 +20,7 @@ public class ProjectsController(IMediator mediator) : ControllerBase
     [HttpPost("add-project", Name = "AddProject")]
     public async Task<ProjectModel> AddProject([FromBody] AddProjectRequest request)
     {
-        return await mediator.Send(new AddProject.Command(request.Name, request.Description, request.Documentation));
+        return await mediator.Send(new AddProject.Command(request.Name, request.Description));
     }
     
     [HttpDelete("remove-project", Name = "RemoveProject")]
@@ -28,5 +28,23 @@ public class ProjectsController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(new RemoveProject.Command(request.ProjectId));
         return NoContent();
+    }
+    
+    [HttpPut("update-project", Name = "UpdateProject")]
+    public async Task<ProjectModel> UpdateProject([FromBody] UpdateProjectRequest request)
+    {
+        return await mediator.Send(new UpdateProject.Command(request.ProjectId, request.Name, request.Description));
+    }
+    
+    [HttpGet("get-project-by-id", Name = "GetProjectById")]
+    public async Task<ProjectExtendedModel> GetProjectById([FromQuery] long projectId)
+    {
+        return await mediator.Send(new GetProjectById.Query(projectId));
+    }
+    
+    [HttpPut("update-project-card", Name = "UpdateProjectCard")]
+    public async Task<ProjectExtendedModel> UpdateProjectCard([FromBody] UpdateProjectCardRequest request)
+    {
+        return await mediator.Send(new UpdateProjectCard.Command(request.ProjectId, request.Name, request.Description, request.Documentation));
     }
 }

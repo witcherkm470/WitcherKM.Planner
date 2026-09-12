@@ -1,10 +1,22 @@
-﻿import { useCallback, useState } from "react";
+﻿import {useCallback, useState} from "react";
 import axios from "axios";
-import type { ApiErrorResponse } from "../api/errors/ApiErrorResponse";
-import type { ApiRequestError } from "../api/errors/ApiRequestError";
+
+import type {ApiErrorResponse} from "../api/errors/ApiErrorResponse";
+import type {ValidationErrorResponse} from "../api/errors/ValidationErrorResponse";
+import type {ApiRequestError} from "../api/errors/ApiRequestError";
 
 interface UseApiRequestOptions<TResult> {
     onSuccess?: (data: TResult) => void | Promise<void>;
+}
+
+type BackendErrorResponse =
+    | ApiErrorResponse
+    | ValidationErrorResponse;
+
+function isApiErrorResponse(
+    response: BackendErrorResponse
+): response is ApiErrorResponse {
+    return Array.isArray(response.errors);
 }
 
 export function useApiRequest<TArgs extends unknown[], TResult>(
@@ -30,16 +42,27 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
                 if (onSuccess) {
                     await onSuccess(result);
                 }
-            }
-            catch (error) {
-                if (axios.isAxiosError<ApiErrorResponse>(error)) {
-                    const messages =
-                        error.response?.data.errors?.map(x => x.message)
-                        ?? [];
+            } catch (error) {
+                if (axios.isAxiosError<BackendErrorResponse>(error)) {
+                    const responseData = error.response?.data;
+
+                    let messages: string[] = [];
+
+                    if (responseData) {
+                        if (isApiErrorResponse(responseData)) {
+                            messages = responseData.errors.map(
+                                item => item.message
+                            );
+                        } else {
+                            messages = Object
+                                .values(responseData.errors)
+                                .flat();
+                        }
+                    }
 
                     setError({
                         status: error.response?.status,
-                        type: error.response?.data.type,
+                        type: responseData?.type,
                         message: messages[0] ?? "Unexpected error",
                         messages
                     });
@@ -51,8 +74,7 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
                     message: "Unexpected error",
                     messages: ["Unexpected error"]
                 });
-            }
-            finally {
+            } finally {
                 setIsLoading(false);
             }
         },

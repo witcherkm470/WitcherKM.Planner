@@ -1,7 +1,8 @@
 ﻿namespace Planner.Api.Models;
 
-public class AddProjectRequest
+public class UpdateProjectRequest
 {
+    public long ProjectId { get; set; }
     public required string Name { get; set; }
     public string? Description { get; set; }
 }

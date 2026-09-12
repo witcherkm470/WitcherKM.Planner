@@ -3,13 +3,14 @@ using Planner.Application.Common.Models;
 using Planner.Application.Common.Models.Projects;
 using Planner.Domain.Entities;
 using Planner.Infrastructure.Repositories;
+using WitcherKM.Common.Core.Exceptions;
 using WitcherKM.Common.Orm.Abstractions;
 
 namespace Planner.Application.Projects.Commands;
 
-public class AddProject
+public class UpdateProject
 {
-    public record Command(string Name, string? Description) : IRequest<ProjectModel>;
+    public record Command(long ProjectId, string Name, string? Description) : IRequest<ProjectModel>;
     
     public class Handler : IRequestHandler<Command, ProjectModel>
     {
@@ -26,9 +27,12 @@ public class AddProject
         {
             using var unitOfWork = _unitOfWorkManager.Create();
 
-            var project = new Project(request.Name, request.Description);
+            var project = await _projectRepository.GetByIdAsync(request.ProjectId, cancellationToken);
             
-            await _projectRepository.AddAsync(project, cancellationToken);
+            if(project == null)
+                throw new EntityNotFoundException(request.ProjectId, $"Entity {nameof(Project)} with id {request.ProjectId} does not exist");
+            
+            project.Update(request.Name, request.Description);
             await unitOfWork.CommitAsync(cancellationToken);  
             
             return project.ToProjectModel();

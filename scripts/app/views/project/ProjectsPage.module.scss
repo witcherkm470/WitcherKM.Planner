@@ -1,0 +1,15 @@
+﻿.page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  gap: 12px;
+}
+
+.loading {
+  padding: 24px;
+
+  color: #625570;
+
+  text-align: center;
+}

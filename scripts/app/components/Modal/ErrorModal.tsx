@@ -8,11 +8,7 @@ interface ErrorModalProps {
     title?: string;
 }
 
-export default function ErrorModal({
-                                       message,
-                                       onClose,
-                                       title = "Ошибка"
-                                   }: ErrorModalProps) {
+export default function ErrorModal({message, onClose, title = "Ошибка"}: ErrorModalProps) {
 
     useEffect(() => {
         function handleKeyDown(event: KeyboardEvent) {

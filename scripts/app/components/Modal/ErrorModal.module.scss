@@ -9,7 +9,7 @@
 
   padding: 24px;
 
-  background-color: rgba(33, 26, 48, 0.42);
+  background-color: rgba(33, 18, 35, 0.52);
   backdrop-filter: blur(3px);
 }
 
@@ -18,14 +18,14 @@
   max-width: 460px;
   overflow: hidden;
 
-  background-color: #faf8ff;
+  background-color: #fff8fc;
 
-  border: 1px solid #d8cde7;
+  border: 1px solid #f05b86;
   border-radius: 14px;
 
   box-shadow:
-          0 4px 12px rgba(41, 30, 64, 0.16),
-          0 18px 48px rgba(41, 30, 64, 0.22);
+          0 4px 14px rgba(120, 20, 70, 0.20),
+          0 18px 50px rgba(91, 25, 75, 0.24);
 }
 
 .header {
@@ -38,18 +38,19 @@
   background:
           linear-gradient(
                           110deg,
-                          #25434d 0%,
-                          #40345e 46%,
-                          #50365f 75%,
-                          #59364e 100%
+                          #41213d 0%,
+                          #692345 42%,
+                          #9b2851 72%,
+                          #df3563 100%
           );
 
-  color: #faf5ff;
+  color: #fff7fb;
 }
 
 .header h2 {
   margin: 0;
 
+  color: #fff7fb;
   font-size: 18px;
   font-weight: 600;
 }
@@ -61,14 +62,15 @@
 
   width: 32px;
   height: 32px;
+
   padding: 0;
 
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.06);
 
-  border: 1px solid rgba(250, 245, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 8px;
 
-  color: #faf5ff;
+  color: #ffffff;
   font-size: 22px;
   line-height: 1;
 
@@ -81,8 +83,8 @@
 }
 
 .closeButton:hover {
-  background-color: rgba(250, 245, 255, 0.12);
-  border-color: rgba(250, 245, 255, 0.45);
+  background-color: #ff5e5e;
+  border-color: #f33e3e;
 
   transform: translateY(-1px);
 }
@@ -92,9 +94,9 @@
 }
 
 .body {
-  padding: 26px 24px 22px;
+  padding: 28px 24px 24px;
 
-  color: #625570;
+  color: #5f4052;
 }
 
 .body p {
@@ -104,10 +106,40 @@
   line-height: 1.55;
 }
 
+.footer {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 0 24px 22px;
+}
+
+.confirmButton {
+  min-width: 104px;
+
+  padding: 9px 18px;
+
+  background-color: #fff0f4;
+
+  border: 1px solid #ef9aae;
+  border-radius: 8px;
+
+  color: #8b2947;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease,
+          transform 0.1s ease;
+}
+
 .confirmButton:hover {
-  background-color: #e7dcf5;
-  border-color: #c7b5dd;
-  color: #372b49;
+  background-color: #ff5e5e;
+  border-color: #f33e3e;
+  color: #ffffff;
 
   transform: translateY(-1px);
 }
