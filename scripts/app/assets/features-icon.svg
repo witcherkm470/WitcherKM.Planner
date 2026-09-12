@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="spell-scroll-gradient" x1="10" y1="56" x2="52" y2="7" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#20C5DB"/>
+      <stop offset=".46" stop-color="#9A79EF"/>
+      <stop offset=".72" stop-color="#C66ADE"/>
+      <stop offset="1" stop-color="#EC6191"/>
+    </linearGradient>
+  </defs>
+  <path d="M17 7H48C52 7 54 10 54 14V18H45V47C45 53 42 57 36 57H15C10 57 7 54 7 50V46H15V15C15 11 14 7 17 7Z" fill="#291E40" stroke="url(#spell-scroll-gradient)" stroke-width="2.3" stroke-linejoin="round"/>
+  <path d="M19 7H48C44 7 43 11 43 15V18H54" stroke="url(#spell-scroll-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7 46H30V50C30 54 32 57 36 57" fill="#352544"/>
+  <path d="M7 46H30V50C30 54 32 57 36 57" stroke="url(#spell-scroll-gradient)" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M23 18H35M23 24H36M23 30H32M23 36H28" stroke="#FFF4FF" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="m44 47-5 13-3-5-5 1 5-13m9 4 6 10 2-5 5-1-9-10" fill="url(#spell-scroll-gradient)" stroke="#291E40" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="m44 33 3 2 4 .5 1 4 2 3-2 3-1 4-4 .5-3 2-3-2-4-.5-1-4-2-3 2-3 1-4 4-.5Z" fill="#291E40" stroke="url(#spell-scroll-gradient)" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="m44 37 4 5.5-4 5.5-4-5.5Z" fill="url(#spell-scroll-gradient)"/>
+  <path d="M44 39V46" stroke="#FFF4FF" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

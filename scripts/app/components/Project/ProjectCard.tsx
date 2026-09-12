@@ -9,7 +9,7 @@ import type {
 
 import ConfirmModal from "../Modal/Project/ConfirmModal.tsx";
 
-import editIcon from "../../assets/magic-edit.svg";
+import editIcon from "../../assets/edit-icon.svg";
 
 import styles from "./ProjectCard.module.scss";
 

@@ -1,8 +1,8 @@
 ﻿import {ProjectStatusLabel, type ProjectModel} from "../../api/models/project/ProjectModel.ts";
 import styles from './ProjectTable.module.scss'
 import {ProjectStatus} from "../../api/models/project/ProjectStatus.ts";
-import editIcon from "../../assets/magic-edit.svg";
-import deleteIcon from "../../assets/magic-delete.svg";
+import editIcon from "../../assets/edit-icon.svg";
+import deleteIcon from "../../assets/delete-icon.svg";
 
 interface ProjectTableProps {
     projects: ProjectModel[];
