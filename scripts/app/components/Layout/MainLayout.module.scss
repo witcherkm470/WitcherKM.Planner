@@ -1,0 +1,285 @@
+﻿.layout {
+  display: flex;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background-color: #f3f0f8;
+}
+
+
+/* ============================= */
+/* SIDEBAR                       */
+/* ============================= */
+
+.sidebar {
+  position: relative;
+
+  height: 100vh;
+
+  flex-shrink: 0;
+
+  background-color: #faf8ff;
+
+  border-right: 1px solid #d8cde7;
+
+  box-shadow:
+          2px 0 8px rgba(41, 30, 64, 0.05);
+
+  overflow: hidden;
+
+  transition:
+          width 0.24s ease,
+          border-color 0.24s ease,
+          box-shadow 0.24s ease;
+}
+
+.sidebarOpen {
+  width: 220px;
+}
+
+.sidebarClosed {
+  width: 28px;
+
+  border-right-color: #d8cde7;
+
+  box-shadow:
+          2px 0 8px rgba(41, 30, 64, 0.04);
+}
+
+
+/* ============================= */
+/* SIDEBAR CONTENT               */
+/* ============================= */
+
+.sidebarContent {
+  width: 220px;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 22px 14px;
+
+  transition:
+          opacity 0.16s ease,
+          transform 0.24s ease,
+          visibility 0.16s ease;
+}
+
+.sidebarContentVisible {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translateX(0);
+
+  pointer-events: auto;
+}
+
+.sidebarContentHidden {
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform: translateX(-14px);
+
+  pointer-events: none;
+}
+
+
+/* ============================= */
+/* NAVIGATION                    */
+/* ============================= */
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  white-space: nowrap;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  color: #594f65;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+}
+
+.navItem:hover {
+  background-color: #f1eafa;
+
+  border-color: #e4d9f0;
+
+  color: #40345e;
+}
+
+.navItemActive {
+  background-color: #e9e2f5;
+
+  border-color: #d8cbea;
+
+  color: #40345e;
+
+  font-weight: 600;
+}
+
+.navItemActive:hover {
+  background-color: #e9e2f5;
+}
+
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+
+  font-size: 13px;
+}
+
+
+/* ============================= */
+/* TOGGLE                        */
+/* ============================= */
+
+.sidebarToggle {
+  position: absolute;
+
+  top: 25%;
+  right: 0;
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 22px;
+  height: 42px;
+
+  padding: 0;
+
+  transform: translateY(-50%);
+
+  background:
+          linear-gradient(
+                          180deg,
+                          #faf8ff 0%,
+                          #f0eafa 100%
+          );
+
+  border: 1px solid #d8cde7;
+  border-right: none;
+
+  border-radius:
+          8px
+          0
+          0
+          8px;
+
+  cursor: pointer;
+
+  box-shadow:
+          -2px 2px 6px rgba(41, 30, 64, 0.08);
+
+  transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          box-shadow 0.15s ease,
+          transform 0.12s ease;
+}
+
+.sidebarToggle:hover {
+  background:
+          linear-gradient(
+                          180deg,
+                          #f6effd 0%,
+                          #e9def6 100%
+          );
+
+  border-color: #c7b5dd;
+
+  box-shadow:
+          -2px 2px 8px rgba(41, 30, 64, 0.12),
+          0 0 8px rgba(154, 121, 239, 0.10);
+}
+
+.sidebarToggle:active {
+  transform:
+          translateY(-50%)
+          scale(0.96);
+}
+
+
+/* ============================= */
+/* ARROW                         */
+/* ============================= */
+
+.toggleArrow {
+  display: block;
+
+  width: 7px;
+  height: 7px;
+
+  border-top: 2px solid #594274;
+  border-right: 2px solid #594274;
+
+  transition:
+          transform 0.24s ease,
+          border-color 0.15s ease,
+          filter 0.15s ease;
+}
+
+.toggleArrowLeft {
+  transform: rotate(-135deg);
+}
+
+.toggleArrowRight {
+  transform: rotate(45deg);
+}
+
+.sidebarToggle:hover .toggleArrow {
+  border-color: #40345e;
+
+  filter:
+          drop-shadow(
+                          0 0 3px rgba(154, 121, 239, 0.55)
+          );
+}
+
+
+/* ============================= */
+/* CONTENT                       */
+/* ============================= */
+
+.content {
+  min-width: 0;
+
+  flex: 1;
+
+  padding: 20px 24px;
+}

@@ -19,7 +19,7 @@ import type { ProjectModel } from "../../api/models/project/ProjectModel.ts";
 
 import styles from "./ProjectsPage.module.scss";
 
-export function RenderProjectsPage() {
+export default function ProjectsPage() {
     const navigate = useNavigate();
 
     const [updatingProject, setUpdatingProject] =

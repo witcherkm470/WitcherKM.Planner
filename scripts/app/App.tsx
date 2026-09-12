@@ -1,27 +1,46 @@
 import "./App.css";
 
-import { Navigate, Route, Routes } from "react-router-dom";
+import {
+    Navigate,
+    Route,
+    Routes
+} from "react-router-dom";
 
-import { RenderProjectsPage } from "./views/project/ProjectsPage.tsx";
+import MainLayout from "./components/Layout/MainLayout.tsx";
+
+import ProjectsPage from "./views/project/ProjectsPage.tsx";
 import ProjectPage from "./views/project/ProjectPage.tsx";
+import FeaturesPage from "./views/feature/FeaturesPage.tsx";
 
 function App() {
     return (
         <Routes>
             <Route
                 path="/"
-                element={<Navigate to="/projects" replace />}
+                element={
+                    <Navigate
+                        to="/projects"
+                        replace
+                    />
+                }
             />
 
-            <Route
-                path="/projects"
-                element={<RenderProjectsPage />}
-            />
+            <Route element={<MainLayout/>}>
+                <Route
+                    path="/projects"
+                    element={<ProjectsPage/>}
+                />
 
-            <Route
-                path="/projects/:projectId"
-                element={<ProjectPage />}
-            />
+                <Route
+                    path="/projects/:projectId"
+                    element={<ProjectPage/>}
+                />
+
+                <Route
+                    path="/features"
+                    element={<FeaturesPage/>}
+                />
+            </Route>
         </Routes>
     );
 }
