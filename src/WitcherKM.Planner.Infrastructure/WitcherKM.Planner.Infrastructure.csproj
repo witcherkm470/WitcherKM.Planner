@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
+                          Version="10.0.11">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="WitcherKM.Common.Orm" Version="0.1.5"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\WitcherKM.Planner.Application.Common\WitcherKM.Planner.Application.Common.csproj" />
+        <ProjectReference Include="..\WitcherKM.Planner.Domain\WitcherKM.Planner.Domain.csproj"/>
+    </ItemGroup>
+
+</Project>

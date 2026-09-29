@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="14.2.0"/>
+        <PackageReference Include="WitcherKM.Common.Orm" Version="0.1.5"/>
+        <PackageReference Include="WitcherKM.Common.Core" Version="0.1.5"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\WitcherKM.Planner.Application.Common\WitcherKM.Planner.Application.Common.csproj"/>
+        <ProjectReference Include="..\WitcherKM.Planner.Infrastructure\WitcherKM.Planner.Infrastructure.csproj"/>
+    </ItemGroup>
+
+</Project>

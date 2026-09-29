@@ -1,0 +1,10 @@
+using WitcherKM.Planner.Application.Common.Models.Projects;
+using WitcherKM.Planner.Domain.Entities;
+using WitcherKM.Common.Orm.Repositories.Abstractions;
+
+namespace WitcherKM.Planner.Infrastructure.Repositories;
+
+public interface IProjectRepository : IEntityRepository<Project>
+{
+    Task<IEnumerable<ProjectNameIdModel>> GetProjectNameAndIdsAsync(CancellationToken cancellationToken);
+}

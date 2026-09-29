@@ -1,0 +1,40 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WitcherKM.Planner.Domain", "src\WitcherKM.Planner.Domain\WitcherKM.Planner.Domain.csproj", "{7774E577-B748-4431-89A7-2E17AAAC7249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WitcherKM.Planner.Application", "src\WitcherKM.Planner.Application\WitcherKM.Planner.Application.csproj", "{71CB143E-757E-44A1-836A-64461FC3180E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WitcherKM.Planner.Infrastructure", "src\WitcherKM.Planner.Infrastructure\WitcherKM.Planner.Infrastructure.csproj", "{EF95F3A7-31EA-4469-AC3B-76342F07402C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WitcherKM.Planner.Api", "src\WitcherKM.Planner.Api\WitcherKM.Planner.Api.csproj", "{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WitcherKM.Planner.Application.Common", "src\WitcherKM.Planner.Application.Common\WitcherKM.Planner.Application.Common.csproj", "{7C798BC1-EA90-415A-9DE1-6D71121B85B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7774E577-B748-4431-89A7-2E17AAAC7249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7774E577-B748-4431-89A7-2E17AAAC7249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7774E577-B748-4431-89A7-2E17AAAC7249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7774E577-B748-4431-89A7-2E17AAAC7249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CB143E-757E-44A1-836A-64461FC3180E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CB143E-757E-44A1-836A-64461FC3180E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CB143E-757E-44A1-836A-64461FC3180E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CB143E-757E-44A1-836A-64461FC3180E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF95F3A7-31EA-4469-AC3B-76342F07402C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF95F3A7-31EA-4469-AC3B-76342F07402C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF95F3A7-31EA-4469-AC3B-76342F07402C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF95F3A7-31EA-4469-AC3B-76342F07402C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE70BEE4-7EC8-4AE8-85D0-A1425BA86B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C798BC1-EA90-415A-9DE1-6D71121B85B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
