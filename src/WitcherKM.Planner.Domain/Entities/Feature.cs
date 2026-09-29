@@ -11,6 +11,8 @@ public class Feature : IEntity
     public long ProjectId { get; private set; }
     
     public Project Project { get; private set; } = null!;
+    private readonly List<TaskItem> _tasks = [];
+    public IReadOnlyCollection<TaskItem> Tasks => _tasks;
 
     public string Name
     {

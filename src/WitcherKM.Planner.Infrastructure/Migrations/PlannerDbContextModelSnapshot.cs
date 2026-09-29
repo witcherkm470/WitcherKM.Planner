@@ -84,6 +84,30 @@ namespace WitcherKM.Planner.Infrastructure.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("WitcherKM.Planner.Domain.Entities.TaskItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("FeatureId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+                    b.HasIndex("FeatureId");
+                    b.ToTable("Tasks");
+                });
+
             modelBuilder.Entity("WitcherKM.Planner.Domain.Entities.Feature", b =>
                 {
                     b.HasOne("WitcherKM.Planner.Domain.Entities.Project", "Project")
@@ -95,9 +119,25 @@ namespace WitcherKM.Planner.Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("WitcherKM.Planner.Domain.Entities.TaskItem", b =>
+                {
+                    b.HasOne("WitcherKM.Planner.Domain.Entities.Feature", "Feature")
+                        .WithMany("Tasks")
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Feature");
+                });
+
             modelBuilder.Entity("WitcherKM.Planner.Domain.Entities.Project", b =>
                 {
                     b.Navigation("Features");
+                });
+
+            modelBuilder.Entity("WitcherKM.Planner.Domain.Entities.Feature", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

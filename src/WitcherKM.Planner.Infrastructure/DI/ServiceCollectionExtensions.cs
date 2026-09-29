@@ -44,6 +44,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IFeatureRepository, FeatureRepository>();
         services.AddScoped<IIdeaRepository, IdeaRepository>();
+        services.AddScoped<ITaskRepository, TaskRepository>();
 
         return services;
     }

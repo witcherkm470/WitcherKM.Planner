@@ -44,16 +44,12 @@ export default function ProjectPage() {
     const {
         execute: loadProject,
         data: project,
-        error: loadProjectError,
-        clearError: clearLoadProjectError,
         isLoading: isProjectLoading
     } = useApiRequest(getProjectById);
 
     const {
         execute: loadProjectFeatures,
-        data: projectFeatures,
-        error: projectFeaturesError,
-        clearError: clearProjectFeaturesError
+        data: projectFeatures
     } = useApiRequest(getProjectFeatures);
 
     const {
@@ -160,24 +156,10 @@ export default function ProjectPage() {
                 />
             )}
 
-            {loadProjectError && (
-                <ErrorModal
-                    message={loadProjectError.message}
-                    onClose={clearLoadProjectError}
-                />
-            )}
-
             {updateProjectError && (
                 <ErrorModal
                     message={updateProjectError.message}
                     onClose={clearUpdateProjectError}
-                />
-            )}
-
-            {projectFeaturesError && (
-                <ErrorModal
-                    message={projectFeaturesError.message}
-                    onClose={clearProjectFeaturesError}
                 />
             )}
 

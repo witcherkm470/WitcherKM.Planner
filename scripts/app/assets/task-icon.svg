@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+<defs><linearGradient id="task-rune-gradient" x1="11" y1="56" x2="51" y2="8" gradientUnits="userSpaceOnUse"><stop stop-color="#20C5DB"/><stop offset=".46" stop-color="#9A79EF"/><stop offset=".72" stop-color="#C66ADE"/><stop offset="1" stop-color="#EC6191"/></linearGradient></defs>
+<path d="m23 7 19 2 12 14-1 22-13 13-21-3L9 41l3-22Z" fill="#291E40" stroke="url(#task-rune-gradient)" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="m23 7-4 17-2 16 2 15L9 41l3-22Z" fill="#594274"/>
+<path d="m42 9 3 16-1 17-4 16 13-13 1-22Z" fill="#352544"/>
+<path d="m23 7 19 2 12 14-1 22-13 13-21-3L9 41l3-22Z" stroke="url(#task-rune-gradient)" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="m19 24 4-8m23 28-4 7" stroke="url(#task-rune-gradient)" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M32 18v29m0-29 9 9-9 7m0-4-8-7m0 15 8 7" stroke="#FFF4FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

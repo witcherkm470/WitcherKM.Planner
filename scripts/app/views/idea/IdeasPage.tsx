@@ -13,7 +13,7 @@ export default function IdeasPage() {
     const [showCanceled, setShowCanceled] = useState(false);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [editingIdea, setEditingIdea] = useState<IdeaModel | null>(null);
-    const { execute: loadIdeas, data: ideas, error: loadError, clearError: clearLoadError, isLoading: isLoadingIdeas } = useApiRequest(getIdeas);
+    const { execute: loadIdeas, data: ideas, isLoading: isLoadingIdeas } = useApiRequest(getIdeas);
 
     const reload = async () => { await loadIdeas(showCanceled); };
     const create = useApiRequest(addIdea, { onSuccess: async () => { setIsCreateOpen(false); await reload(); } });
@@ -31,7 +31,6 @@ export default function IdeasPage() {
             <IdeasTable ideas={ideas ?? []} isBusy={isBusy} onEdit={setEditingIdea} onDelete={ideaId => void remove.execute(ideaId)} onStatusChange={(ideaId, ideaStatus: IdeaStatus) => void status.execute({ ideaId, ideaStatus })} />
             {isCreateOpen && <IdeaModal title="Новая идея" isSaving={create.isLoading} onClose={() => setIsCreateOpen(false)} onSave={essence => void create.execute({ essence })} />}
             {editingIdea && <IdeaModal key={editingIdea.id} title="Редактирование идеи" initialEssence={editingIdea.essence} isSaving={update.isLoading} onClose={() => setEditingIdea(null)} onSave={essence => void update.execute({ ideaId: editingIdea.id, essence })} />}
-            {loadError && <ErrorModal message={loadError.message} onClose={clearLoadError} />}
             {create.error && <ErrorModal message={create.error.message} onClose={create.clearError} />}
             {update.error && <ErrorModal message={update.error.message} onClose={update.clearError} />}
             {remove.error && <ErrorModal message={remove.error.message} onClose={remove.clearError} />}

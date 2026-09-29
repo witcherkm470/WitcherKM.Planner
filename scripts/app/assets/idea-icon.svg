@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+<defs><linearGradient id="idea-crystal-gradient" x1="15" y1="56" x2="47" y2="7" gradientUnits="userSpaceOnUse"><stop stop-color="#20C5DB"/><stop offset=".46" stop-color="#9A79EF"/><stop offset=".72" stop-color="#C66ADE"/><stop offset="1" stop-color="#EC6191"/></linearGradient></defs>
+<path d="m32 5 13 14-3 23-10 9-10-9-3-23Z" fill="#291E40" stroke="url(#idea-crystal-gradient)" stroke-width="2.3" stroke-linejoin="round"/>
+<path d="m32 5-6 16 1 18 5 12-10-9-3-23Z" fill="#594274"/>
+<path d="m32 5 13 14-3 23-10 9 5-12 1-18Z" fill="#352544"/>
+<path d="m32 5-6 16 1 18 5 12 5-12 1-18Z" stroke="url(#idea-crystal-gradient)" stroke-width="1.3" stroke-linejoin="round"/>
+<path d="m32 5 13 14-3 23-10 9-10-9-3-23Z" stroke="url(#idea-crystal-gradient)" stroke-width="2.3" stroke-linejoin="round"/>
+<path d="m32 19 3 10-3 12-3-12Z" fill="#FFF4FF"/>
+<path d="M20 42c1 8 5 12 12 12s11-4 12-12M25 58h14" stroke="url(#idea-crystal-gradient)" stroke-width="2.5" stroke-linecap="round"/>
+<path d="m10 18 3 3m-4 10h4m38-10 3-3m-3 13h4" stroke="url(#idea-crystal-gradient)" stroke-width="2" stroke-linecap="round"/>
+</svg>

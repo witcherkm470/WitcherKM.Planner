@@ -28,8 +28,10 @@ export default function IdeasTable({ ideas, isBusy, onEdit, onDelete, onStatusCh
                                 <td><span className={`${styles.statusBadge} ${styles[`status${idea.ideaStatus}`]}`}>{IdeaStatusLabel[idea.ideaStatus]}</span></td>
                                 <td>
                                     <div className={styles.actions}>
-                                        <TooltipButton type="button" aria-label="Редактировать идею" className={`${styles.actionButton} ${styles.editButton}`} disabled={isBusy || isRealized} onClick={() => onEdit(idea)}><img src={editIcon} alt="" /></TooltipButton>
-                                        <TooltipButton type="button" aria-label="Удалить идею" className={`${styles.actionButton} ${styles.deleteButton}`} disabled={isBusy || isRealized} onClick={() => onDelete(idea.id)}><img src={deleteIcon} alt="" /></TooltipButton>
+                                        {!isRealized && <>
+                                            <TooltipButton type="button" aria-label="Редактировать идею" className={`${styles.actionButton} ${styles.editButton}`} disabled={isBusy} onClick={() => onEdit(idea)}><img src={editIcon} alt="" /></TooltipButton>
+                                            <TooltipButton type="button" aria-label="Удалить идею" className={`${styles.actionButton} ${styles.deleteButton}`} disabled={isBusy} onClick={() => onDelete(idea.id)}><img src={deleteIcon} alt="" /></TooltipButton>
+                                        </>}
                                         {idea.ideaStatus === IdeaStatus.NotRealized && <>
                                             <button type="button" className={`${styles.statusAction} ${styles.realizeAction}`} disabled={isBusy} onClick={() => onStatusChange(idea.id, IdeaStatus.Realized)}>Реализовать</button>
                                             <button type="button" className={`${styles.statusAction} ${styles.cancelAction}`} disabled={isBusy} onClick={() => onStatusChange(idea.id, IdeaStatus.Canceled)}>Отклонить</button>

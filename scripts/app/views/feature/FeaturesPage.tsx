@@ -27,16 +27,12 @@ export default function FeaturesPage() {
 
     const {
         execute: loadFeatures,
-        data: features,
-        error: loadFeaturesError,
-        clearError: clearLoadFeaturesError
+        data: features
     } = useApiRequest(getFeatures);
 
     const {
         execute: loadProjects,
-        data: projects,
-        error: loadProjectsError,
-        clearError: clearLoadProjectsError
+        data: projects
     } = useApiRequest(getProjectNameAndIds);
 
     const {
@@ -94,20 +90,6 @@ export default function FeaturesPage() {
                 <div className={styles.saving}>
                     Создание фичи...
                 </div>
-            )}
-
-            {loadFeaturesError && (
-                <ErrorModal
-                    message={loadFeaturesError.message}
-                    onClose={clearLoadFeaturesError}
-                />
-            )}
-
-            {loadProjectsError && (
-                <ErrorModal
-                    message={loadProjectsError.message}
-                    onClose={clearLoadProjectsError}
-                />
             )}
 
             {featureActions.dialogs}
