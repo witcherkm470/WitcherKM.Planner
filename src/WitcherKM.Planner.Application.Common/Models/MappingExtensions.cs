@@ -1,4 +1,5 @@
 using WitcherKM.Planner.Application.Common.Models.Feature;
+using WitcherKM.Planner.Application.Common.Models.Ideas;
 using WitcherKM.Planner.Application.Common.Models.Projects;
 using WitcherKM.Planner.Domain.Entities;
 
@@ -39,6 +40,16 @@ public static class MappingExtensions
             Description = feature.Description,
             FeatureStatus = feature.FeatureStatus,
             ProjectName = projectName
+        };
+    }
+
+    public static IdeaModel ToIdeaModel(this Idea idea)
+    {
+        return new IdeaModel
+        {
+            Id = idea.Id,
+            Essence = idea.Essence,
+            IdeaStatus = idea.IdeaStatus
         };
     }
 }

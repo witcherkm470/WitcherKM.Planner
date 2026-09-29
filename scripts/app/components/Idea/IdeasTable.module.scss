@@ -1,0 +1,35 @@
+.tableWrapper {
+  width: 100%; overflow: hidden; background-color: #faf8ff; border: 1px solid #d8cde7; border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(41, 30, 64, .10), 0 8px 24px rgba(92, 65, 140, .08);
+}
+
+.ideasTable { width: 100%; border-collapse: collapse; table-layout: fixed; color: #372b49; }
+.ideasTable thead { background: linear-gradient(110deg, #25434d 0%, #40345e 46%, #50365f 75%, #59364e 100%); }
+.ideasTable th, .ideasTable td { padding: 14px 16px; text-align: center; vertical-align: middle; }
+.ideasTable th { color: #faf5ff; font-weight: 600; background: transparent; }
+.ideasTable th:first-child, .ideasTable td:first-child { width: 55%; text-align: left; word-break: break-word; }
+.ideasTable td { color: #625570; border-bottom: 1px solid #e5ddef; }
+.ideasTable tbody tr { background-color: #faf8ff; transition: background-color .15s ease; }
+.ideasTable tbody tr:hover { background-color: #eee7f8; }
+.ideasTable tbody tr:last-child td { border-bottom: none; }
+.empty { padding: 34px 16px !important; text-align: center !important; color: #82758d !important; }
+
+.actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; }
+.actionButton { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; background: #f1eafa; border: 1px solid #d6c8e7; border-radius: 8px; cursor: pointer; transition: background-color .15s ease, border-color .15s ease, transform .1s ease; }
+.actionButton img { width: 24px; height: 24px; }
+.actionButton:hover:not(:disabled) { transform: translateY(-1px); }
+.editButton:hover:not(:disabled) { background-color: #f8dc52; border-color: #edc745; }
+.deleteButton:hover:not(:disabled) { background-color: #ff5e5e; border-color: #f33e3e; }
+.actionButton:disabled, .statusAction:disabled { cursor: default; opacity: .5; }
+.statusAction { padding: 6px 9px; background: #f1eafa; border: 1px solid #d6c8e7; border-radius: 7px; color: #594274; cursor: pointer; font: inherit; font-size: 12px; transition: background-color .15s ease, border-color .15s ease, transform .1s ease; }
+.statusAction:hover:not(:disabled) { background: #eee7f8; transform: translateY(-1px); }
+.realizeAction { background-color: #e3f3e8; border-color: #9bc9a8; color: #28643c; }
+.realizeAction:hover:not(:disabled) { background-color: #cdebd5; border-color: #78b88a; }
+.cancelAction { background-color: #ffdfdf; border-color: #f3a3a3; color: #9d3030; }
+.cancelAction:hover:not(:disabled) { background-color: #ff5e5e; border-color: #f33e3e; color: #4e1010; }
+.statusBadge { display: inline-flex; padding: 5px 10px; border: 1px solid; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.status1 { background: #e8def6; border-color: #bda7dc; color: #5b3f82; }
+.status2 { background: #e0f2f5; border-color: #acd7de; color: #326b75; }
+.status3 { background: #f4e3f3; border-color: #d7b5d4; color: #765174; }
+
+@media (prefers-reduced-motion: reduce) { .ideasTable tbody tr, .actionButton, .statusAction { transition: none; } }

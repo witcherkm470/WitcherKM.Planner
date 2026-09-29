@@ -2,11 +2,13 @@ import { NavLink, Outlet } from "react-router-dom";
 
 import ProjectsIcon from "../../assets/projects-icon.svg";
 import FeaturesIcon from "../../assets/features-icon.svg";
+import ProjectsMainIcon from "../../assets/projects-main-icon.svg";
 import styles from "./MainLayout.module.scss";
 
 const destinations = [
     { to: "/projects", label: "Проекты", icon: ProjectsIcon },
     { to: "/features", label: "Фичи", icon: FeaturesIcon },
+    { to: "/ideas", label: "Идеи", icon: ProjectsMainIcon },
 ];
 
 export default function MainLayout() {

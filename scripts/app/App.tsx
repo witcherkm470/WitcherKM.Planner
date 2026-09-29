@@ -11,6 +11,7 @@ import MainLayout from "./components/Layout/MainLayout.tsx";
 import ProjectsPage from "./views/project/ProjectsPage.tsx";
 import ProjectPage from "./views/project/ProjectPage.tsx";
 import FeaturesPage from "./views/feature/FeaturesPage.tsx";
+import IdeasPage from "./views/idea/IdeasPage.tsx";
 
 function App() {
     return (
@@ -39,6 +40,11 @@ function App() {
                 <Route
                     path="/features"
                     element={<FeaturesPage/>}
+                />
+
+                <Route
+                    path="/ideas"
+                    element={<IdeasPage/>}
                 />
             </Route>
         </Routes>

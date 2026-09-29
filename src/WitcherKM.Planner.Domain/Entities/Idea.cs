@@ -27,4 +27,36 @@ public class Idea : IEntity
     }
     
     public IdeaStatus IdeaStatus { get; private set; }
+
+    public void Update(string essence)
+    {
+        if (IdeaStatus == IdeaStatus.Realized)
+            throw new DomainException("Realized idea cannot be updated");
+
+        Essence = essence;
+    }
+
+    public void SetRealized()
+    {
+        if (IdeaStatus != IdeaStatus.NotRealized)
+            throw new DomainException("Only not realized idea can be realized");
+
+        IdeaStatus = IdeaStatus.Realized;
+    }
+
+    public void SetCanceled()
+    {
+        if (IdeaStatus != IdeaStatus.NotRealized)
+            throw new DomainException("Only not realized idea can be canceled");
+
+        IdeaStatus = IdeaStatus.Canceled;
+    }
+
+    public void SetNotRealized()
+    {
+        if (IdeaStatus != IdeaStatus.Canceled)
+            throw new DomainException("Only canceled idea can be restored");
+
+        IdeaStatus = IdeaStatus.NotRealized;
+    }
 }
