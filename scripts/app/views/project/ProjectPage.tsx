@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { useFeatureActions } from "../../hooks/useFeatureActions";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import ProjectCard
@@ -89,6 +90,8 @@ export default function ProjectPage() {
         }
     });
 
+    const featureActions = useFeatureActions(async () => { const id = Number(projectId); if (!Number.isNaN(id)) { await Promise.all([loadProject(id), loadProjectFeatures(id)]); } });
+
     useEffect(() => {
         const id = Number(projectId);
 
@@ -129,7 +132,7 @@ export default function ProjectPage() {
                 />
             )}
 
-            <ProjectFeaturesTable
+            <ProjectFeaturesTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} isBusy={featureActions.isBusy}
                 features={projectFeatures ?? []}
                 onAdd={() =>
                     setIsCreateFeatureModalOpen(true)
@@ -177,6 +180,8 @@ export default function ProjectPage() {
                     onClose={clearProjectFeaturesError}
                 />
             )}
+
+            {featureActions.dialogs}
 
             {createFeatureError && (
                 <ErrorModal

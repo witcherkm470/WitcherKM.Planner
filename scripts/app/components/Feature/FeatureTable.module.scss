@@ -1,4 +1,4 @@
-﻿.tableWrapper {
+.tableWrapper {
   width: 100%;
 
   overflow: hidden;
@@ -101,9 +101,7 @@
   width: 20%;
 }
 
-.descriptionColumn {
-  width: 45%;
-}
+.descriptionColumn { width: auto; }
 
 .projectColumn {
   width: 20%;
@@ -180,4 +178,11 @@
   color: #82758d;
 
   text-align: center;
+}
+
+.actionsColumn { width: 15%; }
+
+.featuresTable th:nth-child(2),
+.featuresTable td:nth-child(2) {
+  text-align: left;
 }

@@ -1,4 +1,4 @@
-﻿.block {
+.block {
   width: 100%;
 
   overflow: hidden;
@@ -190,9 +190,7 @@
   width: 25%;
 }
 
-.descriptionColumn {
-  width: 55%;
-}
+.descriptionColumn { width: auto; }
 
 .statusColumn {
   width: 20%;
@@ -247,4 +245,11 @@
   color: #82758d;
 
   text-align: center;
+}
+
+.actionsColumn { width: 15%; }
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  text-align: left;
 }

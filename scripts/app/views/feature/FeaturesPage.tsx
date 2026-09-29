@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { useFeatureActions } from "../../hooks/useFeatureActions";
+import { useEffect, useState } from "react";
 
 import FeatureTable
     from "../../components/Feature/FeatureTable.tsx";
@@ -51,6 +52,8 @@ export default function FeaturesPage() {
         }
     });
 
+    const featureActions = useFeatureActions(loadFeatures);
+
     useEffect(() => {
         void loadFeatures();
         void loadProjects();
@@ -67,7 +70,7 @@ export default function FeaturesPage() {
                 }
             />
 
-            <FeatureTable
+            <FeatureTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} isBusy={featureActions.isBusy}
                 features={features ?? []}
             />
 
@@ -106,6 +109,8 @@ export default function FeaturesPage() {
                     onClose={clearLoadProjectsError}
                 />
             )}
+
+            {featureActions.dialogs}
 
             {createFeatureError && (
                 <ErrorModal

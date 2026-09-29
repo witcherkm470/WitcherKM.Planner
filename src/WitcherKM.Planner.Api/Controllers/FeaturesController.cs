@@ -22,4 +22,17 @@ public class FeaturesController(IMediator mediator) : ControllerBase
     {
         return await mediator.Send(new AddFeature.Command(request.Name, request.Description, request.ProjectId));
     }
+    
+    [HttpDelete("remove-feature", Name = "RemoveFeature")]
+    public async Task<IActionResult> RemoveProject([FromQuery] RemoveFeatureRequest request)
+    {
+        await mediator.Send(new RemoveFeature.Command(request.FeatureId));
+        return NoContent();
+    }
+    
+    [HttpPut("update-feature", Name = "UpdateFeature")]
+    public async Task<FeatureModel> UpdateProject([FromBody] UpdateFeatureRequest request)
+    {
+        return await mediator.Send(new UpdateFeature.Command(request.FeatureId, request.Name, request.Description));
+    }
 }

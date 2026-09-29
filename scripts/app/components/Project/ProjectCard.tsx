@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import TooltipButton from "../Tooltip/TooltipButton";
+import { useEffect, useState } from "react";
 
 import { ProjectStatus } from "../../api/models/project/ProjectStatus.ts";
 import { ProjectStatusLabel } from "../../api/models/project/ProjectModel.ts";
@@ -166,7 +167,7 @@ export default function ProjectCard({
                             {ProjectStatusLabel[project.projectStatus]}
                         </span>
 
-                        <button
+                        <TooltipButton
                             type="button"
                             className={`
                                 ${styles.editButton}
@@ -188,7 +189,7 @@ export default function ProjectCard({
                                 src={editIcon}
                                 alt=""
                             />
-                        </button>
+                        </TooltipButton>
                     </div>
                 </header>
 

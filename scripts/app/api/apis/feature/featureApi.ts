@@ -1,4 +1,5 @@
-﻿import { apiClient } from "../../apiClient.ts";
+import type { UpdateFeatureRequest } from "../../models/feature/requests/UpdateFeatureRequest";
+import { apiClient } from "../../apiClient.ts";
 import type {FeatureModel} from "../../models/feature/FeatureModel.ts";
 import type {AddFeatureRequest} from "../../models/feature/requests/AddFeatureRequest.ts";
 import type {ProjectNameIdModel} from "../../models/project/ProjectNameIdModel.ts";
@@ -28,5 +29,14 @@ export async function getProjectNameAndIds(): Promise<ProjectNameIdModel[]> {
         "/projects/get-project-name-and-ids"
     );
 
+    return response.data;
+}
+
+export async function deleteFeature(featureId: number): Promise<void> {
+    await apiClient.delete("/features/remove-feature", { params: { FeatureId: featureId } });
+}
+
+export async function updateFeature(request: UpdateFeatureRequest): Promise<FeatureModel> {
+    const response = await apiClient.put<FeatureModel>("/features/update-feature", request);
     return response.data;
 }

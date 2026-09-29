@@ -1,4 +1,5 @@
-﻿import {ProjectStatusLabel, type ProjectModel} from "../../api/models/project/ProjectModel.ts";
+import TooltipButton from "../Tooltip/TooltipButton";
+import {ProjectStatusLabel, type ProjectModel} from "../../api/models/project/ProjectModel.ts";
 import styles from './ProjectTable.module.scss'
 import {ProjectStatus} from "../../api/models/project/ProjectStatus.ts";
 import editIcon from "../../assets/edit-icon.svg";
@@ -37,7 +38,7 @@ export default function ProjectTable({projects, onDelete, onEdit, onOpen}: Proje
         </td>
         <td>
             <div className={styles.actions}>
-                <button
+                <TooltipButton
                     type="button"
                     onClick={(event) => {
                         event.stopPropagation();
@@ -46,10 +47,10 @@ export default function ProjectTable({projects, onDelete, onEdit, onOpen}: Proje
                     className={`${styles.actionButton} ${styles.editButton}`}
                     aria-label="Редактировать проект"
                 >
-                    <img src={editIcon} alt="edit project"/>
-                </button>
+                    <img src={editIcon} alt=""/>
+                </TooltipButton>
 
-                <button
+                <TooltipButton
                     type="button"
                     onClick={(event) => {
                         event.stopPropagation();
@@ -58,8 +59,8 @@ export default function ProjectTable({projects, onDelete, onEdit, onOpen}: Proje
                     className={`${styles.actionButton} ${styles.deleteButton}`}
                     aria-label="Удалить проект"
                 >
-                    <img src={deleteIcon} alt="delete project"/>
-                </button>
+                    <img src={deleteIcon} alt=""/>
+                </TooltipButton>
             </div>
         </td>
     </tr>)

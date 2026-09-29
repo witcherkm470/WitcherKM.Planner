@@ -7,6 +7,7 @@ public class PlannerDbContext(DbContextOptions<PlannerDbContext> options) : DbCo
 {
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<Feature> Features => Set<Feature>();
+    public DbSet<Idea> Ideas => Set<Idea>();
 
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)

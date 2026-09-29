@@ -35,22 +35,18 @@ public class Feature : IEntity
 
     public Feature(string name, string? description, long projectId)
     {
-        SetFeatureName(name);
-        SetDescription(description);
+        Name = name;
+        Description = description;
         ProjectId = projectId;
         FeatureStatus =  FeatureStatus.Opened;
     }
-    
-    public void SetFeatureName(string featureName)
-    {
-        Name = featureName;
-    }
 
-    public void SetDescription(string? description)
+    public void Update(string name, string? description)
     {
+        Name = name;
         Description = description;
     }
-
+    
     public void SetFeatureInProgress()
     {
         if(FeatureStatus != FeatureStatus.Opened)

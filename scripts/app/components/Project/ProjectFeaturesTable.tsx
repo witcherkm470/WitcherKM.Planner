@@ -1,4 +1,5 @@
-﻿import { FeatureStatus } from "../../api/models/feature/FeatureStatus.ts";
+import FeatureActions from "../Feature/FeatureActions";
+import { FeatureStatus } from "../../api/models/feature/FeatureStatus.ts";
 import { FeatureStatusLabel } from "../../api/models/feature/FeatureModel.ts";
 
 import type {
@@ -9,11 +10,13 @@ import styles from "./ProjectFeaturesTable.module.scss";
 
 interface ProjectFeaturesTableProps {
     features: ProjectFeaturesModel[];
+    onEdit: (feature: ProjectFeaturesModel) => void;
+    onDelete: (id: number) => void;
+    isBusy: boolean;
     onAdd: () => void;
 }
 
-export default function ProjectFeaturesTable({
-                                                 features,
+export default function ProjectFeaturesTable({ onEdit, onDelete, isBusy, features,
                                                  onAdd
                                              }: ProjectFeaturesTableProps) {
 
@@ -65,7 +68,7 @@ export default function ProjectFeaturesTable({
                     <colgroup>
                         <col className={styles.nameColumn} />
                         <col className={styles.descriptionColumn} />
-                        <col className={styles.statusColumn} />
+                        <col className={styles.statusColumn} /><col className={styles.actionsColumn} />
                     </colgroup>
 
                     <thead>
@@ -80,7 +83,7 @@ export default function ProjectFeaturesTable({
 
                         <th>
                             Статус
-                        </th>
+                        </th><th>Действия</th>
                     </tr>
                     </thead>
 
@@ -114,14 +117,14 @@ export default function ProjectFeaturesTable({
                                         }
                                     </span>
                             </td>
-                        </tr>
+                        <td><FeatureActions disabled={isBusy} onEdit={() => onEdit(feature)} onDelete={() => onDelete(feature.id)} /></td></tr>
                     ))}
 
                     {features.length === 0 && (
                         <tr>
                             <td
                                 className={styles.empty}
-                                colSpan={3}
+                                colSpan={4}
                             >
                                 В проекте пока нет фич
                             </td>

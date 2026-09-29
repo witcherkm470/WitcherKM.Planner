@@ -37,21 +37,11 @@ public class Project : IEntity
 
     public Project(string name, string? description)
     {
-        SetProjectName(name);
-        SetDescription(description);
+        Name = name;
+        Description = description;
         SetProjectOpened();
     }
 
-    private void SetProjectName(string name)
-    {
-        Name = name;
-    }
-    
-    private void SetDescription(string? description)
-    {
-        Description = description;
-    }
-    
     public void SetDocumentation(string? documentation)
     {
         Documentation = documentation;
@@ -90,7 +80,7 @@ public class Project : IEntity
 
     public void Update(string name, string? description)
     {
-        SetProjectName(name);
-        SetDescription(description);
+        Name =  name;
+        Description = description;
     }
 }

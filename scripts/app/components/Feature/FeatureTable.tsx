@@ -1,4 +1,5 @@
-﻿import {
+import FeatureActions from "../Feature/FeatureActions";
+import {
     FeatureStatusLabel
 } from "../../api/models/feature/FeatureModel.ts";
 
@@ -14,10 +15,12 @@ import styles from "./FeatureTable.module.scss";
 
 interface FeatureTableProps {
     features: FeatureModel[];
+    onEdit: (feature: FeatureModel) => void;
+    onDelete: (id: number) => void;
+    isBusy: boolean;
 }
 
-export default function FeatureTable({
-                                         features
+export default function FeatureTable({ onEdit, onDelete, isBusy, features
                                      }: FeatureTableProps) {
 
     function getStatusClass(
@@ -45,7 +48,7 @@ export default function FeatureTable({
                     <col className={styles.nameColumn} />
                     <col className={styles.descriptionColumn} />
                     <col className={styles.projectColumn} />
-                    <col className={styles.statusColumn} />
+                    <col className={styles.statusColumn} /><col className={styles.actionsColumn} />
                 </colgroup>
 
                 <thead>
@@ -64,7 +67,7 @@ export default function FeatureTable({
 
                     <th>
                         Статус
-                    </th>
+                    </th><th>Действия</th>
                 </tr>
                 </thead>
 
@@ -102,14 +105,14 @@ export default function FeatureTable({
                                     }
                                 </span>
                         </td>
-                    </tr>
+                    <td><FeatureActions disabled={isBusy} onEdit={() => onEdit(feature)} onDelete={() => onDelete(feature.id)} /></td></tr>
                 ))}
 
                 {features.length === 0 && (
                     <tr>
                         <td
                             className={styles.empty}
-                            colSpan={4}
+                            colSpan={5}
                         >
                             Фичи отсутствуют
                         </td>
