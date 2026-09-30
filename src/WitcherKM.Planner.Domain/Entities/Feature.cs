@@ -45,6 +45,9 @@ public class Feature : IEntity
 
     public void Update(string name, string? description)
     {
+        if (FeatureStatus == FeatureStatus.Completed)
+            throw new DomainException("Completed feature cannot be updated");
+
         Name = name;
         Description = description;
     }

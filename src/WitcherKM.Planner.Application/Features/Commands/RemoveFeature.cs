@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using WitcherKM.Common.Core.Exceptions;
 using WitcherKM.Common.Orm.Abstractions;
-using WitcherKM.Planner.Application.Common.Exceptions;
 using WitcherKM.Planner.Domain.Entities;
+using WitcherKM.Planner.Domain.Enums;
 using WitcherKM.Planner.Infrastructure.Repositories;
 
 namespace WitcherKM.Planner.Application.Features.Commands;
@@ -31,11 +31,8 @@ public class RemoveFeature
             if(feature is null)
                 throw new EntityNotFoundException(request.FeatureId, $"Entity {nameof(Feature)} with id {request.FeatureId} does not exist");
             
-            var isAnyFeaturesForProject = await _featureRepository.AnyExistsByProjectIdAsync(feature.Id, cancellationToken);
-            if (isAnyFeaturesForProject)
-            {
-                throw new DeleteProjectException("Cannot delete project with features");
-            }  
+            if (feature.FeatureStatus == FeatureStatus.Completed)
+                throw new DomainException("Completed feature cannot be deleted");
             
             _featureRepository.Remove(feature);
             await unitOfWork.CommitAsync(cancellationToken);  

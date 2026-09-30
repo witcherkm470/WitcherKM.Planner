@@ -12,16 +12,19 @@ import {
 } from "../../api/models/feature/FeatureStatus.ts";
 
 import styles from "./FeatureTable.module.scss";
+import { useNavigate } from "react-router-dom";
 
 interface FeatureTableProps {
     features: FeatureModel[];
     onEdit: (feature: FeatureModel) => void;
     onDelete: (id: number) => void;
     isBusy: boolean;
+    onChangeStatus: (id: number, status: FeatureStatus) => void;
 }
 
-export default function FeatureTable({ onEdit, onDelete, isBusy, features
+export default function FeatureTable({ onEdit, onDelete, onChangeStatus, isBusy, features
                                      }: FeatureTableProps) {
+    const navigate = useNavigate();
 
     function getStatusClass(
         status: FeatureStatus
@@ -73,7 +76,7 @@ export default function FeatureTable({ onEdit, onDelete, isBusy, features
 
                 <tbody>
                 {features.map(feature => (
-                    <tr key={feature.id}>
+                    <tr key={feature.id} onClick={() => navigate(`/features/${feature.id}`)}>
                         <td>
                             {feature.name}
                         </td>
@@ -105,7 +108,7 @@ export default function FeatureTable({ onEdit, onDelete, isBusy, features
                                     }
                                 </span>
                         </td>
-                    <td><FeatureActions disabled={isBusy} onEdit={() => onEdit(feature)} onDelete={() => onDelete(feature.id)} /></td></tr>
+                    <td><FeatureActions disabled={isBusy} status={feature.featureStatus} onChangeStatus={status => onChangeStatus(feature.id, status)} onEdit={() => onEdit(feature)} onDelete={() => onDelete(feature.id)} /></td></tr>
                 ))}
 
                 {features.length === 0 && (

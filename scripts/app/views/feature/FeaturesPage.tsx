@@ -20,10 +20,13 @@ import {
 } from "../../hooks/useApiRequest.ts";
 
 import styles from "./FeaturesPage.module.scss";
+import { FeatureStatus } from "../../api/models/feature/FeatureStatus.ts";
 
 export default function FeaturesPage() {
     const [isCreateModalOpen, setIsCreateModalOpen] =
         useState(false);
+    const [statusFilter, setStatusFilter] = useState<FeatureStatus>();
+    const [projectFilter, setProjectFilter] = useState<number>();
 
     const {
         execute: loadFeatures,
@@ -64,10 +67,18 @@ export default function FeaturesPage() {
                 onAdd={() =>
                     setIsCreateModalOpen(true)
                 }
+                status={statusFilter}
+                projectId={projectFilter}
+                projects={projects ?? []}
+                onStatusChange={setStatusFilter}
+                onProjectChange={setProjectFilter}
             />
 
-            <FeatureTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} isBusy={featureActions.isBusy}
-                features={features ?? []}
+            <FeatureTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} onChangeStatus={featureActions.onChangeStatus} isBusy={featureActions.isBusy}
+                features={(features ?? []).filter(feature =>
+                    (statusFilter === undefined || feature.featureStatus === statusFilter)
+                    && (projectFilter === undefined || feature.projectId === projectFilter)
+                )}
             />
 
             {isCreateModalOpen && (

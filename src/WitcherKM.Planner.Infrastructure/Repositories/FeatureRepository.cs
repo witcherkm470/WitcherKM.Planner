@@ -34,6 +34,7 @@ public class FeatureRepository : EntityRepository<Feature, PlannerDbContext>, IF
             Name = f.Name,
             Description = f.Description,
             FeatureStatus = f.FeatureStatus,
+            ProjectId = f.ProjectId,
             ProjectName = f.Project.Name
         }).ToListAsync(cancellationToken);
     }

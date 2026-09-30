@@ -4,6 +4,7 @@ using WitcherKM.Planner.Api.Models.Feature;
 using WitcherKM.Planner.Application.Common.Models.Feature;
 using WitcherKM.Planner.Application.Features.Commands;
 using WitcherKM.Planner.Application.Features.Queries;
+using WitcherKM.Planner.Domain.Enums;
 
 namespace WitcherKM.Planner.Api.Controllers;
 
@@ -34,5 +35,11 @@ public class FeaturesController(IMediator mediator) : ControllerBase
     public async Task<FeatureModel> UpdateProject([FromBody] UpdateFeatureRequest request)
     {
         return await mediator.Send(new UpdateFeature.Command(request.FeatureId, request.Name, request.Description));
+    }
+
+    [HttpPut("{featureId:long}/status", Name = "ChangeFeatureStatus")]
+    public async Task<FeatureModel> ChangeStatus(long featureId, [FromBody] ChangeFeatureStatusRequest request)
+    {
+        return await mediator.Send(new ChangeFeatureStatus.Command(featureId, request.FeatureStatus));
     }
 }

@@ -128,7 +128,7 @@ export default function ProjectPage() {
                 />
             )}
 
-            <ProjectFeaturesTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} isBusy={featureActions.isBusy}
+            <ProjectFeaturesTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} onChangeStatus={featureActions.onChangeStatus} isBusy={featureActions.isBusy}
                 features={projectFeatures ?? []}
                 onAdd={() =>
                     setIsCreateFeatureModalOpen(true)

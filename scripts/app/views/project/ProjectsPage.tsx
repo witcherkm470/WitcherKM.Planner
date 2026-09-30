@@ -18,6 +18,7 @@ import { useApiRequest } from "../../hooks/useApiRequest.ts";
 import type { ProjectModel } from "../../api/models/project/ProjectModel.ts";
 
 import styles from "./ProjectsPage.module.scss";
+import { ProjectStatus } from "../../api/models/project/ProjectStatus.ts";
 
 export default function ProjectsPage() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function ProjectsPage() {
 
     const [isCreateModalOpen, setIsCreateModalOpen] =
         useState(false);
+    const [statusFilter, setStatusFilter] = useState<ProjectStatus>();
 
     const {
         execute: loadProjects,
@@ -71,10 +73,12 @@ export default function ProjectsPage() {
         <div className={styles.page}>
             <ProjectsToolbar
                 onAdd={() => setIsCreateModalOpen(true)}
+                status={statusFilter}
+                onStatusChange={setStatusFilter}
             />
 
             <ProjectTable
-                projects={projects ?? []}
+                projects={(projects ?? []).filter(project => statusFilter === undefined || project.projectStatus === statusFilter)}
                 onDelete={deleteProjectById}
                 onEdit={setUpdatingProject}
                 onOpen={(projectId) =>

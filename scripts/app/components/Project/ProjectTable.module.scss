@@ -127,6 +127,16 @@
   border-color: #f33e3e;
 }
 
+.statusStartButton { background-color: #e3f3e8; border-color: #9bc9a8; color: #28643c; }
+.statusStartButton:hover { background-color: #cdebd5; border-color: #78b88a; }
+.statusCompleteButton { background-color: #e3f3e8; border-color: #9bc9a8; color: #28643c; }
+.statusCompleteButton:hover { background-color: #cdebd5; border-color: #78b88a; }
+.statusReopenButton { background-color: #f1eafa; border-color: #d6c8e7; color: #594274; }
+.statusReopenButton:hover { background-color: #eee7f8; border-color: #bfa8d8; }
+
+.actionButton img { width: 20px; height: 20px; }
+.actionButton:focus-visible { outline: 3px solid rgba(125, 90, 160, .35); outline-offset: 2px; }
+
 .actionButton:active {
   transform: translateY(0);
 }

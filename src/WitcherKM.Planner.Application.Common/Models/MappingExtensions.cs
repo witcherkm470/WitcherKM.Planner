@@ -39,6 +39,7 @@ public static class MappingExtensions
             Name = feature.Name,
             Description = feature.Description,
             FeatureStatus = feature.FeatureStatus,
+            ProjectId = feature.ProjectId,
             ProjectName = projectName
         };
     }

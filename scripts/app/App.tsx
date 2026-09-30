@@ -13,13 +13,7 @@ import ProjectPage from "./views/project/ProjectPage.tsx";
 import FeaturesPage from "./views/feature/FeaturesPage.tsx";
 import IdeasPage from "./views/idea/IdeasPage.tsx";
 import { TaskCardPage, TasksPage } from "./views/task/TasksPage.tsx";
-import { useParams } from "react-router-dom";
-
-function FeatureTasksPage() {
-    const { featureId } = useParams();
-    const id = Number(featureId);
-    return <main>{Number.isNaN(id) ? null : <TasksPage featureId={id}/>}</main>;
-}
+import FeaturePage from "./views/feature/FeaturePage.tsx";
 
 function App() {
     return (
@@ -56,7 +50,7 @@ function App() {
                 />
                 <Route path="/tasks" element={<TasksPage/>}/>
                 <Route path="/tasks/:taskId" element={<TaskCardPage/>}/>
-                <Route path="/features/:featureId" element={<FeatureTasksPage/>}/>
+                <Route path="/features/:featureId" element={<FeaturePage/>}/>
             </Route>
         </Routes>
     );

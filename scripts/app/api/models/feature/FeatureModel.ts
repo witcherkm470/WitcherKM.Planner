@@ -5,6 +5,7 @@ export interface FeatureModel {
     name: string;
     description: string | null;
     featureStatus: FeatureStatus;
+    projectId: number;
     projectName: string;
 }
 

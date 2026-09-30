@@ -70,6 +70,12 @@
   min-height: 38px;
 }
 
+.filterLabel { display: flex; align-items: center; gap: 7px; color: #625570; font-size: 13px; font-weight: 600; }
+.filterLabel select { min-width: 128px; appearance: none; padding: 8px 34px 8px 11px; border: 1px solid #cdbce3; border-radius: 999px; background: linear-gradient(110deg, #fffaff, #f1eafa); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23594274' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.7'/%3E%3C/svg%3E"), linear-gradient(110deg, #fffaff, #f1eafa); background-repeat: no-repeat; background-position: right 10px center, 0 0; color: #49345f; font: inherit; font-weight: 600; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 1px 2px rgba(41,30,64,.08); transition: border-color .15s ease, box-shadow .15s ease, transform .1s ease; }
+.filterLabel select:hover { border-color: #a88bc7; transform: translateY(-1px); }
+.filterLabel select:focus-visible { outline: none; border-color: #7d5aa0; box-shadow: 0 0 0 3px rgba(125,90,160,.22); }
+.filterLabel option { background: #faf8ff; color: #372b49; font-weight: 500; }
+
 .addButton {
   display: inline-flex;
   align-items: center;

@@ -3,6 +3,7 @@ import { apiClient } from "../../apiClient.ts";
 import type {FeatureModel} from "../../models/feature/FeatureModel.ts";
 import type {AddFeatureRequest} from "../../models/feature/requests/AddFeatureRequest.ts";
 import type {ProjectNameIdModel} from "../../models/project/ProjectNameIdModel.ts";
+import type { FeatureStatus } from "../../models/feature/FeatureStatus.ts";
 
 export async function getFeatures(): Promise<FeatureModel[]> {
     const response = await apiClient.get<FeatureModel[]>(
@@ -38,5 +39,10 @@ export async function deleteFeature(featureId: number): Promise<void> {
 
 export async function updateFeature(request: UpdateFeatureRequest): Promise<FeatureModel> {
     const response = await apiClient.put<FeatureModel>("/features/update-feature", request);
+    return response.data;
+}
+
+export async function changeFeatureStatus(featureId: number, status: FeatureStatus): Promise<FeatureModel> {
+    const response = await apiClient.put<FeatureModel>(`/features/${featureId}/status`, { featureStatus: status });
     return response.data;
 }

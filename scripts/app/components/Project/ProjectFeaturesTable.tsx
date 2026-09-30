@@ -7,6 +7,9 @@ import type {
 } from "../../api/models/project/ProjectFeaturesModel.ts";
 
 import styles from "./ProjectFeaturesTable.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import FilterSelect from "../FilterSelect/FilterSelect.tsx";
 
 interface ProjectFeaturesTableProps {
     features: ProjectFeaturesModel[];
@@ -14,12 +17,16 @@ interface ProjectFeaturesTableProps {
     onDelete: (id: number) => void;
     isBusy: boolean;
     onAdd: () => void;
+    onChangeStatus: (id: number, status: FeatureStatus) => void;
 }
 
-export default function ProjectFeaturesTable({ onEdit, onDelete, isBusy, features,
+export default function ProjectFeaturesTable({ onEdit, onDelete, onChangeStatus, isBusy, features,
                                                  onAdd
                                              }: ProjectFeaturesTableProps) {
 
+    const navigate = useNavigate();
+    const [statusFilter, setStatusFilter] = useState<FeatureStatus>();
+    const visibleFeatures = features.filter(feature => statusFilter === undefined || feature.featureStatus === statusFilter);
     function getStatusClass(
         status: FeatureStatus
     ): string {
@@ -46,6 +53,7 @@ export default function ProjectFeaturesTable({ onEdit, onDelete, isBusy, feature
                 </h2>
 
                 <div className={styles.headerActions}>
+                    <span className={styles.filterLabel}>Статус<FilterSelect tone="dark" ariaLabel="Статус фичи проекта" value={statusFilter} onChange={setStatusFilter} options={[{ value: undefined, label: "Все" }, { value: FeatureStatus.Opened, label: "Открытые" }, { value: FeatureStatus.InProgress, label: "В работе" }, { value: FeatureStatus.Completed, label: "Завершённые" }]} /></span>
                     <button
                         type="button"
                         className={styles.addButton}
@@ -88,8 +96,8 @@ export default function ProjectFeaturesTable({ onEdit, onDelete, isBusy, feature
                     </thead>
 
                     <tbody>
-                    {features.map(feature => (
-                        <tr key={feature.id}>
+                    {visibleFeatures.map(feature => (
+                        <tr key={feature.id} onClick={() => navigate(`/features/${feature.id}`)}>
                             <td>
                                 {feature.name}
                             </td>
@@ -117,10 +125,10 @@ export default function ProjectFeaturesTable({ onEdit, onDelete, isBusy, feature
                                         }
                                     </span>
                             </td>
-                        <td><FeatureActions disabled={isBusy} onEdit={() => onEdit(feature)} onDelete={() => onDelete(feature.id)} /></td></tr>
+                        <td><FeatureActions disabled={isBusy} status={feature.featureStatus} onChangeStatus={status => onChangeStatus(feature.id, status)} onEdit={() => onEdit(feature)} onDelete={() => onDelete(feature.id)} /></td></tr>
                     ))}
 
-                    {features.length === 0 && (
+                    {visibleFeatures.length === 0 && (
                         <tr>
                             <td
                                 className={styles.empty}
