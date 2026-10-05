@@ -1,4 +1,4 @@
-﻿import {useCallback, useState} from "react";
+import {useCallback, useLayoutEffect, useRef, useState} from "react";
 import axios from "axios";
 
 import type {ApiErrorResponse} from "../api/errors/ApiErrorResponse";
@@ -28,21 +28,28 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
     const [isLoading, setIsLoading] = useState(false);
 
     const onSuccess = options?.onSuccess;
+    const successCallback = useRef(onSuccess);
+    const latestRequest = useRef(0);
+    useLayoutEffect(() => { successCallback.current = onSuccess; }, [onSuccess]);
+    useLayoutEffect(() => () => { latestRequest.current += 1; }, []);
 
     const execute = useCallback(
         async (...args: TArgs): Promise<void> => {
+            const requestId = ++latestRequest.current;
+            const isCurrent = () => requestId === latestRequest.current;
             setIsLoading(true);
             setError(null);
 
             try {
                 const result = await request(...args);
+                if (!isCurrent()) return;
 
                 setData(result);
 
-                if (onSuccess) {
-                    await onSuccess(result);
-                }
+                // A filter can change while a write is pending: reload its current value.
+                await successCallback.current?.(result);
             } catch (error) {
+                if (!isCurrent()) return;
                 if (axios.isAxiosError<BackendErrorResponse>(error)) {
                     const responseData = error.response?.data;
 
@@ -75,10 +82,10 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
                     messages: ["Не удалось выполнить запрос. Проверьте соединение и повторите попытку."]
                 });
             } finally {
-                setIsLoading(false);
+                if (isCurrent()) setIsLoading(false);
             }
         },
-        [request, onSuccess]
+        [request]
     );
 
     const clearError = useCallback(() => {

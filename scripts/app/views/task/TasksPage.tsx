@@ -41,6 +41,11 @@ export function TasksPage({ featureId, onChanged }: { featureId?: number; onChan
 
 export function TaskCardPage() {
     const { taskId } = useParams();
+    return <TaskCardPageContent key={taskId} />;
+}
+
+function TaskCardPageContent() {
+    const { taskId } = useParams();
     const navigate = useNavigate();
     const { execute: load, data, error, clearError, isLoading } = useApiRequest(getTask);
     const id = Number(taskId);

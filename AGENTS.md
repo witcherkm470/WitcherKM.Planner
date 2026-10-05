@@ -1,9 +1,9 @@
 # Правила работы в Planner
 
-- src/ — Domain, Application.Common, Application, Infrastructure, Api; scripts/ — React-клиент; tests/ — backend-проверки.
-- [Canonical specs](docs/specs/README.md) задают поведение, [architecture](docs/architecture/overview.md) — технические правила, [design](docs/design/frontend.md) — визуальные правила.
-- Перед изменением прочитать релевантные specs, architecture и затронутый код. При изменённой spec сначала изучить git diff. Не придумывать продуктовые требования и не переписывать specs под случайный дефект кода.
-- Неоднозначности записывать в docs/specs/questions.md; продолжать независимую работу. Сохранять незакоммиченные пользовательские изменения.
-- [implement-change](.agents/skills/implement-change/SKILL.md) — реализация изменения; [spec-management](.agents/skills/spec-management/SKILL.md) — сопровождение требований; [domain-modeling](.agents/skills/domain-modeling/SKILL.md) — доменный срез; [testing](.agents/skills/testing/SKILL.md) — проверка.
-- Существующие тесты нельзя менять ради зелёного прогона. Ожидание можно менять только при явно изменившемся соответствующем требовании с указанием его источника.
-- Проверить критерии приёмки, релевантные тесты и сборки. Для frontend обязательны lint и build. Отчёт различает пройденные, упавшие и не выполненные проверки.
+- `src/` — backend; `scripts/` — React; `tests/` — backend tests. Сохраняй пользовательские изменения, перед работой изучай git status/diff.
+- [Canonical specs](docs/specs/README.md): `domain` — словарь/агрегаты/инварианты, `application` — сценарии со ссылками на domain, `ui` — страницы/действия/модалки. Это источник поведения, не копия особенностей кода.
+- [Architecture](docs/architecture/overview.md) — технические правила; [design](docs/design/frontend.md) — визуальные. Skills содержат процедуры, не дублируют эти правила.
+- Порядок: `docs/specs/changes/active/<change>.md` → canonical specs → code → проверки → `changes/archive`. Незавершённое остаётся active. Не придумывай требования и не ослабляй specs под дефект; реальные неоднозначности фиксируй в [questions](docs/specs/questions.md), продолжая независимую работу.
+- Основной router: [implement-change](.agents/skills/implement-change/SKILL.md). По задаче читай [spec-management](.agents/skills/spec-management/SKILL.md), [domain-modeling](.agents/skills/domain-modeling/SKILL.md), [testing](.agents/skills/testing/SKILL.md). Не загружай все skills/references заранее.
+- Для отдельных этапов: [incremental-implementation](.agents/skills/incremental-implementation/SKILL.md), [debugging-and-error-recovery](.agents/skills/debugging-and-error-recovery/SKILL.md), [code-review-and-quality](.agents/skills/code-review-and-quality/SKILL.md), [frontend-ui-engineering](.agents/skills/frontend-ui-engineering/SKILL.md), [api-and-interface-design](.agents/skills/api-and-interface-design/SKILL.md).
+- Существующие тесты запрещено подгонять ради зелёного прогона; условия допустимых изменений и отчётности заданы в testing. Команды сборки и проверок — в [architecture/testing](docs/architecture/testing.md).

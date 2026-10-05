@@ -7,3 +7,5 @@
 - Правило неизменности тестовых ожиданий и процесс проверки см. [.agents/skills/testing](../../.agents/skills/testing/SKILL.md).
 
 Для browser smoke нужен Chromium Playwright (npx playwright install chromium). На этой машине использован уже установленный Edge: в PowerShell $env:PLAYWRIGHT_CHANNEL='msedge'; npm run test:e2e. Результаты находятся в artifacts/playwright и не коммитятся. Настоящий HTTP-host с пользовательским ключом MediatR этим набором не запускается.
+
+Дополнительные suites: DomainInvariantTests — атомарность отказа редактирования, Canceled-идея, терминальная защита удаления и повторное закрытие проекта; interaction-regressions.test.tsx — порядок ответов/актуальный callback/размонтирование, селект и имена диалогов; route-regressions.test.tsx — изоляция редакторов трёх карточек. interaction-regressions.spec.ts дополняет браузерный прогон формой общей фичи, ошибкой/повтором сохранения, возвратом фокуса и прямым переходом истории между задачами.

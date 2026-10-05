@@ -2,7 +2,7 @@
 
 - I-01: Essence не пустая и не состоит только из пробелов.
 - I-02: новая идея NotRealized = 2. Переходы: NotRealized → Realized = 1; NotRealized → Canceled = 3; Canceled → NotRealized.
-- I-03: Realized — конечное состояние. Редактирование и удаление запрещены; локальную проверку выполняет Idea. Canceled можно редактировать и удалять.
+- I-03: Realized — конечное состояние. Редактирование и удаление запрещены. Canceled можно редактировать и удалять.
 
 Источник: legacy/ideas/initial.md; Realzied исправлено на существующее Realized.
 

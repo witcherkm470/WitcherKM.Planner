@@ -1,0 +1,81 @@
+import { test, expect } from "@playwright/test";
+import { mockApi } from "./mockApi";
+
+test("global feature modal supports keyboard parent selection, failed save and retry", async ({ page }, testInfo) => {
+    const api = await mockApi(page);
+    api.projects.push({ id: 9, name: "Второй проект", description: null, documentation: null, projectStatus: 1, openedFeatureCount: 0 });
+    const errors: string[] = [];
+    page.on("pageerror", error => errors.push(error.message));
+    let failNextSave = true;
+    await page.route("**/api/features/add-feature", async route => {
+        if (failNextSave) {
+            failNextSave = false;
+            await route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ errors: [{ message: "Тестовая ошибка сохранения" }] }) });
+        } else await route.fallback();
+    });
+    await page.goto("/features");
+    await page.getByRole("button", { name: /Добавить фичу/ }).click();
+    const modal = page.getByRole("dialog", { name: "Новая фича" });
+    await modal.getByLabel("Название", { exact: true }).fill("Фича второго проекта");
+    const parent = modal.getByRole("button", { name: "Проект", exact: true });
+    await parent.focus();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Escape");
+    await expect(modal).toBeVisible();
+    await expect(parent).toBeFocused();
+    await expect(modal.getByLabel("Название", { exact: true })).toHaveValue("Фича второго проекта");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("End");
+    await page.keyboard.press("Enter");
+    await expect(parent).toHaveText("Второй проект");
+    await expect(parent).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(modal.getByRole("button", { name: "Отмена" })).toBeFocused();
+    await modal.getByRole("button", { name: "Создать" }).click();
+    const error = page.getByRole("dialog", { name: "Ошибка", exact: true });
+    await expect(error).toContainText("Тестовая ошибка сохранения");
+    await page.keyboard.press("Escape");
+    await expect(error).toHaveCount(0);
+    await expect(modal.getByRole("button", { name: "Создать" })).toBeFocused();
+    await expect(modal.getByLabel("Название", { exact: true })).toHaveValue("Фича второго проекта");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.screenshot({ path: testInfo.outputPath("feature-modal-mobile.png"), fullPage: true });
+    await modal.getByRole("button", { name: "Создать" }).click();
+    await expect(modal).toHaveCount(0);
+    expect(api.features.find(feature => feature.name === "Фича второго проекта")?.projectId).toBe(9);
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    const row = page.getByRole("row").filter({ hasText: "Фича второго проекта" });
+    await row.getByRole("button", { name: "Редактировать фичу" }).click();
+    const edit = page.getByRole("dialog", { name: "Редактирование фичи" });
+    await expect(edit.getByLabel("Название", { exact: true })).toHaveValue("Фича второго проекта");
+    await edit.getByLabel("Описание", { exact: true }).fill("Проверено в браузере");
+    await edit.getByRole("button", { name: "Сохранить" }).click();
+    await expect(row).toContainText("Проверено в браузере");
+    await row.getByRole("button", { name: "Начать фичу", exact: true }).click();
+    await expect(row).toContainText("В работе");
+    await page.getByRole("button", { name: "Проект", exact: true }).click();
+    await page.getByRole("option", { name: "Второй проект", exact: true }).click();
+    await page.getByRole("button", { name: "Статус фичи", exact: true }).click();
+    await page.getByRole("option", { name: "В работе", exact: true }).click();
+    await expect(page.getByRole("link", { name: "Первая фича", exact: true })).toHaveCount(0);
+    await expect(row).toBeVisible();
+    expect(api.unhandled).toEqual([]);
+    expect(errors).toEqual([]);
+});
+
+test("history navigation closes an editor belonging to the previous task", async ({ page }) => {
+    const api = await mockApi(page);
+    api.tasks.push(...[30, 31].map(id => ({ id, name: "Задача " + id, description: null, taskStatus: 1 as const, featureId: 2, featureName: "Первая фича", projectId: 1, projectName: "Проект тестирования" })));
+    await page.goto("/tasks");
+    await page.getByRole("link", { name: "Задача 30", exact: true }).click();
+    await page.getByRole("link", { name: "Задачи", exact: true }).click();
+    await page.getByRole("link", { name: "Задача 31", exact: true }).click();
+    await page.getByRole("button", { name: "Редактировать задачу" }).click();
+    await page.getByRole("dialog").getByLabel("Название", { exact: true }).fill("Черновик задачи 31");
+    // Skip the list entry, keeping the same route component type mounted.
+    await page.evaluate(() => window.history.go(-2));
+    await expect(page).toHaveURL(/\/tasks\/30$/);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Задача 30", exact: true })).toBeVisible();
+    expect(api.tasks[1].name).toBe("Задача 31");
+});

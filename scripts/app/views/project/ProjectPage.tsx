@@ -34,6 +34,11 @@ import styles from "./ProjectPage.module.scss";
 
 export default function ProjectPage() {
     const { projectId } = useParams();
+    return <ProjectPageContent key={projectId} />;
+}
+
+function ProjectPageContent() {
+    const { projectId } = useParams();
 
     const [isEditing, setIsEditing] =
         useState(false);

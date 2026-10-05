@@ -13,6 +13,11 @@ import styles from "./FeaturePage.module.scss";
 
 export default function FeaturePage() {
     const { featureId } = useParams();
+    return <FeaturePageContent key={featureId} />;
+}
+
+function FeaturePageContent() {
+    const { featureId } = useParams();
     const navigate = useNavigate();
     const id = Number(featureId);
     const { execute: loadFeatures, data: features, error: loadError, clearError: clearLoadError, isLoading } = useApiRequest(getFeatures);
