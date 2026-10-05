@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import TooltipButton from "../Tooltip/TooltipButton";
 import {ProjectStatusLabel, type ProjectModel} from "../../api/models/project/ProjectModel.ts";
 import styles from './ProjectTable.module.scss'
@@ -7,6 +8,7 @@ import deleteIcon from "../../assets/delete-icon.svg";
 
 interface ProjectTableProps {
     projects: ProjectModel[];
+    isBusy: boolean;
     onDelete: (projectId: number) => void;
     onEdit: (project: ProjectModel) => void;
     onOpen: (projectId: number) => void;
@@ -14,10 +16,10 @@ interface ProjectTableProps {
 
 function getStatusClass(status: ProjectStatus): string {
     switch (status) {
-        case ProjectStatus.InProgress:
+        case ProjectStatus.Opened:
             return styles.statusInProgress;
 
-        case ProjectStatus.Completed:
+        case ProjectStatus.Closed:
             return styles.statusCompleted;
 
         default:
@@ -25,11 +27,11 @@ function getStatusClass(status: ProjectStatus): string {
     }
 }
 
-export default function ProjectTable({projects, onDelete, onEdit, onOpen}: ProjectTableProps) {
+export default function ProjectTable({projects, onDelete, onEdit, onOpen, isBusy}: ProjectTableProps) {
 
     const projectsTable = projects.map(project =>
         <tr key={project.id} onClick={() => onOpen(project.id)}>
-        <td>{project.name}</td>
+        <td><Link to={"/projects/" + project.id} onClick={event => event.stopPropagation()}>{project.name}</Link></td>
         <td>{project.description}</td>
         <td>
     <span className={`${styles.statusBadge} ${getStatusClass(project.projectStatus)}`}>
@@ -39,6 +41,7 @@ export default function ProjectTable({projects, onDelete, onEdit, onOpen}: Proje
         <td>
             <div className={styles.actions}>
                 <TooltipButton
+                    disabled={isBusy}
                     type="button"
                     onClick={(event) => {
                         event.stopPropagation();
@@ -51,6 +54,7 @@ export default function ProjectTable({projects, onDelete, onEdit, onOpen}: Proje
                 </TooltipButton>
 
                 <TooltipButton
+                    disabled={isBusy}
                     type="button"
                     onClick={(event) => {
                         event.stopPropagation();

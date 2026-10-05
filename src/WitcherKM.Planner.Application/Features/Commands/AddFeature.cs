@@ -35,6 +35,7 @@ public class AddFeature
                 throw new EntityNotFoundException(request.ProjectId, $"Entity {nameof(Project)} with id {request.ProjectId} does not exist");
             
             var feature = new Feature(request.Name, request.Description, project.Id);
+            project.AddFeature(feature);
             await _featureRepository.AddAsync(feature, cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);  
             

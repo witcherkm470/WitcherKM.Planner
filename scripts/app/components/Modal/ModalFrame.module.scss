@@ -1,0 +1,15 @@
+.frame {
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+}
+
+.frame button:disabled {
+  cursor: default;
+  opacity: .55;
+  transform: none;
+}
+
+.frame button:focus-visible {
+  outline: 3px solid #9a79ef;
+  outline-offset: 2px;
+}

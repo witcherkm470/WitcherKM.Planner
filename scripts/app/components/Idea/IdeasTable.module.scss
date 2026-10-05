@@ -33,3 +33,7 @@
 .status3 { background: #f4e3f3; border-color: #d7b5d4; color: #765174; }
 
 @media (prefers-reduced-motion: reduce) { .ideasTable tbody tr, .actionButton, .statusAction { transition: none; } }
+
+.tableWrapper a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.tableWrapper a:hover { color: #7d5aa0; }
+.tableWrapper a:focus-visible { outline: 3px solid #9a79ef; outline-offset: 3px; border-radius: 2px; }

@@ -19,4 +19,10 @@ public class TaskItem : IEntity
     public void SetInProgress() { if (TaskStatus != PlannerTaskStatus.Open) throw new DomainException("Only open task can be started"); TaskStatus = PlannerTaskStatus.InProgress; }
     public void SetDone() { if (TaskStatus != PlannerTaskStatus.InProgress) throw new DomainException("Only in progress task can be completed"); TaskStatus = PlannerTaskStatus.Done; }
     public void SetOpen() { if (TaskStatus != PlannerTaskStatus.InProgress) throw new DomainException("Only in progress task can be reopened"); TaskStatus = PlannerTaskStatus.Open; }
+
+    public void EnsureCanDelete()
+    {
+        if (TaskStatus == PlannerTaskStatus.Done)
+            throw new DomainException("Done task cannot be deleted");
+    }
 }

@@ -20,7 +20,7 @@ public class Feature : IEntity
         private set
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new DomainException("Project name cannot be empty");
+                throw new DomainException("Feature name cannot be empty");
 
             field = value;
         }
@@ -70,9 +70,15 @@ public class Feature : IEntity
     
     public void SetFeatureOpened()
     {
-        if(FeatureStatus == FeatureStatus.Opened)
-            throw new DomainException("Feature is already opened");
+        if(FeatureStatus != FeatureStatus.InProgress)
+            throw new DomainException("Only in progress feature can be reopened");
         
         FeatureStatus = FeatureStatus.Opened;
+    }
+
+    public void EnsureCanDelete()
+    {
+        if (FeatureStatus == FeatureStatus.Completed)
+            throw new DomainException("Completed feature cannot be deleted");
     }
 }

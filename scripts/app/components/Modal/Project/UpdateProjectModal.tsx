@@ -1,5 +1,5 @@
 ﻿import {useState} from "react";
-import {createPortal} from "react-dom";
+import ModalFrame from "../ModalFrame";
 import type {ProjectModel} from "../../../api/models/project/ProjectModel.ts";
 import styles from "./UpdateProjectModal.module.scss";
 
@@ -7,22 +7,21 @@ interface EditProjectModalProps {
     project: ProjectModel;
     onSave: (name: string, description: string) => void;
     onClose: () => void;
+    isSaving: boolean;
 }
 
-export default function UpdateProjectModal({project, onSave, onClose}: EditProjectModalProps) {
+export default function UpdateProjectModal({ isSaving, project, onSave, onClose}: EditProjectModalProps) {
     const [name, setName] = useState(project.name);
     const [description, setDescription] = useState(project.description ?? "");
 
-    return createPortal(
-        <div className={styles.overlay}>
-            <section className={styles.modal}>
+    return <ModalFrame titleId="edit-project-title" onClose={onClose} isBusy={isSaving} className={styles.modal} overlayClassName={styles.overlay}>
                 <header className={styles.header}>
-                    <h2>Редактирование проекта</h2>
+                    <h2 id="edit-project-title">Редактирование проекта</h2>
 
                     <button
                         type="button"
                         className={styles.closeButton}
-                        onClick={onClose}
+                        onClick={onClose} disabled={isSaving}
                         aria-label="Закрыть"
                     >
                         ×
@@ -35,7 +34,7 @@ export default function UpdateProjectModal({project, onSave, onClose}: EditProje
                             Название
                         </label>
 
-                        <input
+                        <input disabled={isSaving}
                             id="project-name"
                             value={name}
                             onChange={event => setName(event.target.value)}
@@ -47,7 +46,7 @@ export default function UpdateProjectModal({project, onSave, onClose}: EditProje
                             Описание
                         </label>
 
-                        <textarea
+                        <textarea disabled={isSaving}
                             id="project-description"
                             value={description}
                             onChange={event => setDescription(event.target.value)}
@@ -59,7 +58,7 @@ export default function UpdateProjectModal({project, onSave, onClose}: EditProje
                     <button
                         type="button"
                         className={styles.cancelButton}
-                        onClick={onClose}
+                        onClick={onClose} disabled={isSaving}
                     >
                         Отмена
                     </button>
@@ -67,13 +66,12 @@ export default function UpdateProjectModal({project, onSave, onClose}: EditProje
                     <button
                         type="button"
                         className={styles.saveButton}
+                        disabled={isSaving || !name.trim()}
                         onClick={() => onSave(name, description)}
                     >
                         Сохранить
                     </button>
                 </footer>
-            </section>
-        </div>,
-        document.body
-    );
+
+    </ModalFrame>;
 }

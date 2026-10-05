@@ -1,5 +1,5 @@
 import TooltipButton from "../Tooltip/TooltipButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ProjectStatus } from "../../api/models/project/ProjectStatus.ts";
 import { ProjectStatusLabel } from "../../api/models/project/ProjectModel.ts";
@@ -49,11 +49,6 @@ export default function ProjectCard({
     const [isConfirmOpen, setIsConfirmOpen] =
         useState(false);
 
-    useEffect(() => {
-        setName(project.name);
-        setDescription(project.description ?? "");
-        setDocumentation(project.documentation ?? "");
-    }, [project]);
 
     const hasChanges =
         name !== project.name ||
@@ -94,6 +89,7 @@ export default function ProjectCard({
     }
 
     function saveChanges() {
+        if (isSaving || !name.trim()) return;
         onSave({
             name,
             description,
@@ -116,10 +112,10 @@ export default function ProjectCard({
 
     function getStatusClass(status: ProjectStatus): string {
         switch (status) {
-            case ProjectStatus.InProgress:
+            case ProjectStatus.Opened:
                 return styles.statusInProgress;
 
-            case ProjectStatus.Completed:
+            case ProjectStatus.Closed:
                 return styles.statusCompleted;
 
             default:
@@ -139,6 +135,7 @@ export default function ProjectCard({
                         {isEditing ? (
                             <input
                                 className={styles.titleInput}
+                                aria-label="Название проекта" disabled={isSaving}
                                 value={name}
                                 onChange={event =>
                                     setName(event.target.value)
@@ -202,6 +199,7 @@ export default function ProjectCard({
                         {isEditing ? (
                             <textarea
                                 className={styles.textarea}
+                                aria-label="Описание проекта" disabled={isSaving}
                                 value={description}
                                 onChange={event =>
                                     setDescription(event.target.value)
@@ -228,6 +226,7 @@ export default function ProjectCard({
                                     ${styles.textarea}
                                     ${styles.documentationInput}
                                 `}
+                                aria-label="Документация проекта" disabled={isSaving}
                                 value={documentation}
                                 onChange={event =>
                                     setDocumentation(event.target.value)
@@ -250,7 +249,7 @@ export default function ProjectCard({
                             type="button"
                             className={styles.saveButton}
                             onClick={saveChanges}
-                            disabled={isSaving || !hasChanges}
+                            disabled={isSaving || !hasChanges || !name.trim()}
                         >
                             {
                                 isSaving
@@ -270,6 +269,7 @@ export default function ProjectCard({
                     cancelText="Нет"
                     onConfirm={saveAndCloseConfirmation}
                     onCancel={discardChanges}
+                    onClose={() => setIsConfirmOpen(false)}
                 />
             )}
         </>

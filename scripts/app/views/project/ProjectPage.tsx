@@ -28,6 +28,8 @@ import {
     useApiRequest
 } from "../../hooks/useApiRequest.ts";
 
+import { ProjectStatus } from "../../api/models/project/ProjectStatus";
+
 import styles from "./ProjectPage.module.scss";
 
 export default function ProjectPage() {
@@ -44,12 +46,12 @@ export default function ProjectPage() {
     const {
         execute: loadProject,
         data: project,
-        isLoading: isProjectLoading
+        isLoading: isProjectLoading, error: loadError, clearError: clearLoadError
     } = useApiRequest(getProjectById);
 
     const {
         execute: loadProjectFeatures,
-        data: projectFeatures
+        data: projectFeatures, error: featuresError, clearError: clearFeaturesError
     } = useApiRequest(getProjectFeatures);
 
     const {
@@ -68,7 +70,7 @@ export default function ProjectPage() {
     const {
         execute: createFeature,
         error: createFeatureError,
-        clearError: clearCreateFeatureError
+        clearError: clearCreateFeatureError, isLoading: isFeatureCreating
     } = useApiRequest(addFeature, {
         onSuccess: async () => {
             setIsCreateFeatureModalOpen(false);
@@ -111,8 +113,9 @@ export default function ProjectPage() {
                 </div>
             )}
 
-            {project && (
+            {project && project.id === Number(projectId) && (
                 <ProjectCard
+                    key={project.id}
                     project={project}
                     isEditing={isEditing}
                     isSaving={isProjectUpdating}
@@ -128,15 +131,16 @@ export default function ProjectPage() {
                 />
             )}
 
-            <ProjectFeaturesTable onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} onChangeStatus={featureActions.onChangeStatus} isBusy={featureActions.isBusy}
+            <ProjectFeaturesTable canAdd={!!project && project.id === Number(projectId) && project.projectStatus !== ProjectStatus.Closed && !isFeatureCreating} onEdit={featureActions.onEdit} onDelete={featureActions.onDelete} onChangeStatus={featureActions.onChangeStatus} isBusy={featureActions.isBusy}
                 features={projectFeatures ?? []}
                 onAdd={() =>
                     setIsCreateFeatureModalOpen(true)
                 }
             />
 
-            {isCreateFeatureModalOpen && project && (
+            {isCreateFeatureModalOpen && project && project.id === Number(projectId) && (
                 <CreateProjectFeatureModal
+                    isSaving={isFeatureCreating}
                     projectName={project.name}
                     onClose={() =>
                         setIsCreateFeatureModalOpen(false)
@@ -164,6 +168,8 @@ export default function ProjectPage() {
             )}
 
             {featureActions.dialogs}
+            {loadError && <ErrorModal message={loadError.message} onClose={clearLoadError} />}
+            {featuresError && <ErrorModal message={featuresError.message} onClose={clearFeaturesError} />}
 
             {createFeatureError && (
                 <ErrorModal

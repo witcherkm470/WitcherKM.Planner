@@ -2,7 +2,6 @@ using MediatR;
 using WitcherKM.Common.Core.Exceptions;
 using WitcherKM.Common.Orm.Abstractions;
 using WitcherKM.Planner.Domain.Entities;
-using WitcherKM.Planner.Domain.Enums;
 using WitcherKM.Planner.Infrastructure.Repositories;
 
 namespace WitcherKM.Planner.Application.Ideas.Commands;
@@ -21,8 +20,7 @@ public class RemoveIdea
             if (idea is null)
                 throw new EntityNotFoundException(request.IdeaId, $"Entity {nameof(Idea)} with id {request.IdeaId} does not exist");
 
-            if (idea.IdeaStatus == IdeaStatus.Realized)
-                throw new DomainException("Realized idea cannot be deleted");
+            idea.EnsureCanDelete();
 
             ideaRepository.Remove(idea);
             await unitOfWork.CommitAsync(cancellationToken);

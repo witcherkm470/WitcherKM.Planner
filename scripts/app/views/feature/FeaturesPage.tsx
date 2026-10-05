@@ -30,12 +30,12 @@ export default function FeaturesPage() {
 
     const {
         execute: loadFeatures,
-        data: features
+        data: features, error: loadError, clearError: clearLoadError
     } = useApiRequest(getFeatures);
 
     const {
         execute: loadProjects,
-        data: projects
+        data: projects, error: projectsError, clearError: clearProjectsError
     } = useApiRequest(getProjectNameAndIds);
 
     const {
@@ -83,6 +83,7 @@ export default function FeaturesPage() {
 
             {isCreateModalOpen && (
                 <CreateFeatureModal
+                    isSaving={isFeatureCreating}
                     projects={projects ?? []}
                     onClose={() =>
                         setIsCreateModalOpen(false)
@@ -104,6 +105,8 @@ export default function FeaturesPage() {
             )}
 
             {featureActions.dialogs}
+            {loadError && <ErrorModal message={loadError.message} onClose={clearLoadError} />}
+            {projectsError && <ErrorModal message={projectsError.message} onClose={clearProjectsError} />}
 
             {createFeatureError && (
                 <ErrorModal

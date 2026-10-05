@@ -12,6 +12,8 @@
 | `WitcherKM.Planner.Application` | Обработчики MediatR-команд и запросов. |
 | `WitcherKM.Planner.Api` | Точка запуска, контроллеры, request-модели, настройка сервисов и миграций. |
 
+Тестовый проект WitcherKM.Planner.Tests находится в tests/ и включён в solution дополнительно к пяти production-проектам. Проверки описаны в [testing.md](testing.md).
+
 Отдельно в `scripts/` расположен React-клиент. В `shared/appsettings.json` находится конфигурация, подключаемая API при запуске.
 
 ## Фактические зависимости проектов

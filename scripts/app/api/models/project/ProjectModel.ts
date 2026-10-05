@@ -9,6 +9,6 @@ export interface ProjectModel {
 
 export const ProjectStatusLabel: Record<ProjectStatus, string> = {
     [ProjectStatus.Undefined]: "Undefined",
-    [ProjectStatus.InProgress]: "В работе",
-    [ProjectStatus.Completed]: "Завершён",
+    [ProjectStatus.Opened]: "Открыт",
+    [ProjectStatus.Closed]: "Закрыт",
 };

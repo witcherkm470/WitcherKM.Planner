@@ -1,7 +1,7 @@
 ﻿export const ProjectStatus = {
     Undefined: 0,
-    InProgress: 1,
-    Completed: 2,
+    Opened: 1,
+    Closed: 2,
 } as const;
 
 export type ProjectStatus =

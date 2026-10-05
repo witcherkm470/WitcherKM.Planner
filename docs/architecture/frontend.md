@@ -25,12 +25,16 @@ Vite в режиме разработки проксирует `/api` на `http
 | `/projects` | `ProjectsPage`. |
 | `/projects/:projectId` | `ProjectPage`. |
 | `/features` | `FeaturesPage`. |
+| `/features/:featureId` | `FeaturePage`. |
+| `/tasks` | `TasksPage`. |
+| `/tasks/:taskId` | `TaskCardPage`. |
+| `/ideas` | `IdeasPage`. |
 
 `MainLayout` предоставляет постоянную боковую навигацию и рендерит страницы через `Outlet`.
 
 ## Данные и ошибки
 
-Endpoint-функции определены в `api/apis/project/projectApi.ts` и `api/apis/feature/featureApi.ts`. Страницы должны использовать эти функции, а не составлять URL в JSX-компонентах.
+Endpoint-функции определены в `api/apis/` для project, feature, task и idea. Страницы должны использовать эти функции, а не составлять URL в JSX-компонентах.
 
 `useApiRequest` инкапсулирует данные, загрузку, ошибку, очистку ошибки и `onSuccess`. После успешного изменения текущие страницы перезагружают данные с API. `useFeatureActions` объединяет диалоги и запросы изменения/удаления фич.
 
@@ -47,6 +51,6 @@ Endpoint-функции определены в `api/apis/project/projectApi.ts`
 7. Соблюдать [дизайн frontend](../design/frontend.md), если задача меняет UI или SVG.
 8. Перед сдачей изменений frontend запускать из `scripts/` как минимум `npm run lint` и `npm run build`.
 
-Текущий код не содержит отдельного state manager, библиотеки компонентов, дизайн-токенов или тестовой инфраструктуры. Не добавлять их без отдельного требования и спецификации.
+Отдельные state manager, UI-kit и CSS framework не используются. Тестовая инфраструктура добавлена по запросу аудита соответствия; устройство и команды описаны в [testing](testing.md). Не вводить новую инфраструктуру без обоснованной задачи.
 
 Строгий порядок выполнения frontend-задач находится в [rules/frontend.md](../rules/frontend.md).

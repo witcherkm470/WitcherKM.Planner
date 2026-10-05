@@ -1,5 +1,5 @@
 ﻿import { useState } from "react";
-import { createPortal } from "react-dom";
+import ModalFrame from "../ModalFrame";
 
 import styles from "./CreateProjectFeatureModal.module.scss";
 
@@ -12,9 +12,10 @@ interface CreateProjectFeatureModalProps {
     ) => void;
 
     onClose: () => void;
+    isSaving: boolean;
 }
 
-export default function CreateProjectFeatureModal({
+export default function CreateProjectFeatureModal({ isSaving,
                                                       projectName,
                                                       onSave,
                                                       onClose
@@ -28,20 +29,14 @@ export default function CreateProjectFeatureModal({
     const canSave =
         name.trim().length > 0;
 
-    return createPortal(
-        <div className={styles.overlay}>
-            <section
-                className={styles.modal}
-                role="dialog"
-                aria-modal="true"
-            >
+    return <ModalFrame titleId="create-project-feature-title" onClose={onClose} isBusy={isSaving} className={styles.modal} overlayClassName={styles.overlay}>
                 <header className={styles.header}>
                     <div>
                         <span className={styles.caption}>
                             {projectName}
                         </span>
 
-                        <h2>
+                        <h2 id="create-project-feature-title">
                             Новая фича
                         </h2>
                     </div>
@@ -49,7 +44,7 @@ export default function CreateProjectFeatureModal({
                     <button
                         type="button"
                         className={styles.closeButton}
-                        onClick={onClose}
+                        onClick={onClose} disabled={isSaving}
                         aria-label="Закрыть"
                     >
                         ×
@@ -62,7 +57,7 @@ export default function CreateProjectFeatureModal({
                             Название
                         </label>
 
-                        <input
+                        <input disabled={isSaving}
                             id="project-feature-name"
                             value={name}
                             onChange={event =>
@@ -76,7 +71,7 @@ export default function CreateProjectFeatureModal({
                             Краткое описание
                         </label>
 
-                        <textarea
+                        <textarea disabled={isSaving}
                             id="project-feature-description"
                             value={description}
                             onChange={event =>
@@ -90,7 +85,7 @@ export default function CreateProjectFeatureModal({
                     <button
                         type="button"
                         className={styles.cancelButton}
-                        onClick={onClose}
+                        onClick={onClose} disabled={isSaving}
                     >
                         Отмена
                     </button>
@@ -98,7 +93,7 @@ export default function CreateProjectFeatureModal({
                     <button
                         type="button"
                         className={styles.saveButton}
-                        disabled={!canSave}
+                        disabled={isSaving || !canSave}
                         onClick={() =>
                             onSave(
                                 name,
@@ -109,8 +104,6 @@ export default function CreateProjectFeatureModal({
                         Создать
                     </button>
                 </footer>
-            </section>
-        </div>,
-        document.body
-    );
+
+    </ModalFrame>;
 }

@@ -1,4 +1,4 @@
-﻿import { createPortal } from "react-dom";
+﻿import ModalFrame from "../ModalFrame";
 
 import styles from "./ConfirmModal.module.scss";
 
@@ -11,9 +11,10 @@ interface ConfirmModalProps {
 
     onConfirm: () => void;
     onCancel: () => void;
+    onClose: () => void;
 }
 
-export default function ConfirmModal({
+export default function ConfirmModal({ onClose,
                                          title,
                                          message,
                                          confirmText,
@@ -21,14 +22,7 @@ export default function ConfirmModal({
                                          onConfirm,
                                          onCancel
                                      }: ConfirmModalProps) {
-    return createPortal(
-        <div className={styles.overlay}>
-            <section
-                className={styles.modal}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="confirm-title"
-            >
+    return <ModalFrame titleId="confirm-title" onClose={onClose} className={styles.modal} overlayClassName={styles.overlay}>
                 <header className={styles.header}>
                     <h2 id="confirm-title">
                         {title}
@@ -56,8 +50,6 @@ export default function ConfirmModal({
                         {confirmText}
                     </button>
                 </footer>
-            </section>
-        </div>,
-        document.body
-    );
+
+    </ModalFrame>;
 }

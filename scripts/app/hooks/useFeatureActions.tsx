@@ -6,9 +6,9 @@ import UpdateFeatureModal from "../components/Modal/Feature/UpdateFeatureModal";
 import ErrorModal from "../components/Modal/ErrorModal";
 import { useApiRequest } from "./useApiRequest";
 
-export function useFeatureActions(onChanged: () => Promise<void>) {
+export function useFeatureActions(onChanged: () => Promise<void>, onDeleted?: () => void) {
     const [editingFeature, setEditingFeature] = useState<ProjectFeaturesModel | null>(null);
-    const removal = useApiRequest(deleteFeature, { onSuccess: onChanged });
+    const removal = useApiRequest(deleteFeature, { onSuccess: async () => { if (onDeleted) onDeleted(); else await onChanged(); } });
     const update = useApiRequest(updateFeature, {
         onSuccess: async () => {
             setEditingFeature(null);

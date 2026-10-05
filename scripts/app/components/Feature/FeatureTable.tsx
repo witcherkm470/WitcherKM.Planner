@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FeatureActions from "../Feature/FeatureActions";
 import {
     FeatureStatusLabel
@@ -78,7 +79,7 @@ export default function FeatureTable({ onEdit, onDelete, onChangeStatus, isBusy,
                 {features.map(feature => (
                     <tr key={feature.id} onClick={() => navigate(`/features/${feature.id}`)}>
                         <td>
-                            {feature.name}
+                            <Link to={"/features/" + feature.id} onClick={event => event.stopPropagation()}>{feature.name}</Link>
                         </td>
 
                         <td>

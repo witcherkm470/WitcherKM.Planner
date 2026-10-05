@@ -186,3 +186,7 @@
 .featuresTable td:nth-child(2) {
   text-align: left;
 }
+
+.tableWrapper a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.tableWrapper a:hover { color: #7d5aa0; }
+.tableWrapper a:focus-visible { outline: 3px solid #9a79ef; outline-offset: 3px; border-radius: 2px; }

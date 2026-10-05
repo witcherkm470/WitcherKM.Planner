@@ -32,13 +32,14 @@ export default function ProjectsPage() {
 
     const {
         execute: loadProjects,
-        data: projects
+        data: projects,
+        error: loadError, clearError: clearLoadError, isLoading: isLoadingProjects
     } = useApiRequest(getProjects);
 
     const {
         execute: deleteProjectById,
         error: deleteProjectError,
-        clearError: clearDeletionError
+        clearError: clearDeletionError, isLoading: isDeleting
     } = useApiRequest(deleteProject, {
         onSuccess: loadProjects
     });
@@ -46,7 +47,7 @@ export default function ProjectsPage() {
     const {
         execute: updateProjectRequest,
         error: updateProjectError,
-        clearError: clearUpdateError
+        clearError: clearUpdateError, isLoading: isUpdating
     } = useApiRequest(updateProject, {
         onSuccess: async () => {
             setUpdatingProject(null);
@@ -57,7 +58,7 @@ export default function ProjectsPage() {
     const {
         execute: createProject,
         error: createProjectError,
-        clearError: clearCreateProjectError
+        clearError: clearCreateProjectError, isLoading: isCreating
     } = useApiRequest(addProject, {
         onSuccess: async () => {
             setIsCreateModalOpen(false);
@@ -78,6 +79,7 @@ export default function ProjectsPage() {
             />
 
             <ProjectTable
+                isBusy={isLoadingProjects || isDeleting || isUpdating || isCreating}
                 projects={(projects ?? []).filter(project => statusFilter === undefined || project.projectStatus === statusFilter)}
                 onDelete={deleteProjectById}
                 onEdit={setUpdatingProject}
@@ -88,6 +90,7 @@ export default function ProjectsPage() {
 
             {isCreateModalOpen && (
                 <CreateProjectModal
+                    isSaving={isCreating}
                     onClose={() => setIsCreateModalOpen(false)}
                     onSave={(name, description) =>
                         void createProject({
@@ -100,6 +103,7 @@ export default function ProjectsPage() {
 
             {updatingProject && (
                 <UpdateProjectModal
+                    isSaving={isUpdating}
                     key={updatingProject.id}
                     project={updatingProject}
                     onClose={() => setUpdatingProject(null)}
@@ -113,6 +117,7 @@ export default function ProjectsPage() {
                 />
             )}
 
+            {loadError && <ErrorModal message={loadError.message} onClose={clearLoadError} />}
             {deleteProjectError && (
                 <ErrorModal
                     message={deleteProjectError.message}

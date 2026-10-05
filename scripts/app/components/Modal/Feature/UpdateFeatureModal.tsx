@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {createPortal} from "react-dom";
+import ModalFrame from "../ModalFrame";
 import type {ProjectFeaturesModel} from "../../../api/models/project/ProjectFeaturesModel.ts";
 import styles from "../Project/UpdateProjectModal.module.scss";
 
@@ -14,9 +14,7 @@ export default function UpdateFeatureModal({feature, onSave, onClose, isSaving}:
     const [name, setName] = useState(feature.name);
     const [description, setDescription] = useState(feature.description ?? "");
 
-    return createPortal(
-        <div className={styles.overlay}>
-            <section className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="edit-feature-title">
+    return <ModalFrame titleId="edit-feature-title" onClose={onClose} isBusy={isSaving} className={styles.modal} overlayClassName={styles.overlay}>
                 <header className={styles.header}>
                     <h2 id="edit-feature-title">Редактирование фичи</h2>
 
@@ -36,7 +34,7 @@ export default function UpdateFeatureModal({feature, onSave, onClose, isSaving}:
                             Название
                         </label>
 
-                        <input
+                        <input disabled={isSaving}
                             id="feature-name"
                             value={name}
                             onChange={event => setName(event.target.value)}
@@ -48,7 +46,7 @@ export default function UpdateFeatureModal({feature, onSave, onClose, isSaving}:
                             Описание
                         </label>
 
-                        <textarea
+                        <textarea disabled={isSaving}
                             id="feature-description"
                             value={description}
                             onChange={event => setDescription(event.target.value)}
@@ -73,8 +71,6 @@ export default function UpdateFeatureModal({feature, onSave, onClose, isSaving}:
                         {isSaving ? "Сохранение..." : "Сохранить"}
                     </button>
                 </footer>
-            </section>
-        </div>,
-        document.body
-    );
+
+    </ModalFrame>;
 }

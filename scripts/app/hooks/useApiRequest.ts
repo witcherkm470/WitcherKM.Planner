@@ -48,7 +48,7 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
 
                     let messages: string[] = [];
 
-                    if (responseData) {
+                    if (responseData && typeof responseData === "object" && responseData.errors) {
                         if (isApiErrorResponse(responseData)) {
                             messages = responseData.errors.map(
                                 item => item.message
@@ -63,7 +63,7 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
                     setError({
                         status: error.response?.status,
                         type: responseData?.type,
-                        message: messages[0] ?? "Unexpected error",
+                        message: messages[0] ?? "Не удалось выполнить запрос. Повторите попытку.",
                         messages
                     });
 
@@ -71,8 +71,8 @@ export function useApiRequest<TArgs extends unknown[], TResult>(
                 }
 
                 setError({
-                    message: "Unexpected error",
-                    messages: ["Unexpected error"]
+                    message: "Не удалось выполнить запрос. Проверьте соединение и повторите попытку.",
+                    messages: ["Не удалось выполнить запрос. Проверьте соединение и повторите попытку."]
                 });
             } finally {
                 setIsLoading(false);

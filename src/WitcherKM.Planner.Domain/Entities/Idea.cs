@@ -59,4 +59,10 @@ public class Idea : IEntity
 
         IdeaStatus = IdeaStatus.NotRealized;
     }
+
+    public void EnsureCanDelete()
+    {
+        if (IdeaStatus == IdeaStatus.Realized)
+            throw new DomainException("Realized idea cannot be deleted");
+    }
 }

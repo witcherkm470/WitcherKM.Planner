@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
+import ModalFrame from "../ModalFrame";
 import styles from "../Project/CreateProjectModal.module.scss";
 
 interface IdeaModalProps {
@@ -19,9 +19,7 @@ export default function IdeaModal({
 }: IdeaModalProps) {
     const [essence, setEssence] = useState(initialEssence);
 
-    return createPortal(
-        <div className={styles.overlay}>
-            <section className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="idea-modal-title">
+    return <ModalFrame titleId="idea-modal-title" onClose={onClose} isBusy={isSaving} className={styles.modal} overlayClassName={styles.overlay}>
                 <header className={styles.header}>
                     <h2 id="idea-modal-title">{title}</h2>
                     <button type="button" className={styles.closeButton} onClick={onClose} disabled={isSaving} aria-label="Закрыть">×</button>
@@ -29,7 +27,7 @@ export default function IdeaModal({
                 <div className={styles.body}>
                     <div className={styles.formGroup}>
                         <label htmlFor="idea-essence">Суть</label>
-                        <textarea id="idea-essence" value={essence} onChange={event => setEssence(event.target.value)} />
+                        <textarea disabled={isSaving} id="idea-essence" value={essence} onChange={event => setEssence(event.target.value)} />
                     </div>
                 </div>
                 <footer className={styles.footer}>
@@ -38,8 +36,6 @@ export default function IdeaModal({
                         {isSaving ? "Сохранение..." : "Сохранить"}
                     </button>
                 </footer>
-            </section>
-        </div>,
-        document.body
-    );
+
+    </ModalFrame>;
 }

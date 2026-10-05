@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getFeatures } from "../../api/apis/feature/featureApi.ts";
 import { getTasks } from "../../api/apis/task/taskApi.ts";
 import { FeatureStatusLabel } from "../../api/models/feature/FeatureModel.ts";
@@ -8,23 +8,25 @@ import FeatureActions from "../../components/Feature/FeatureActions.tsx";
 import { useApiRequest } from "../../hooks/useApiRequest.ts";
 import { useFeatureActions } from "../../hooks/useFeatureActions.tsx";
 import { TasksPage } from "../task/TasksPage.tsx";
+import ErrorModal from "../../components/Modal/ErrorModal";
 import styles from "./FeaturePage.module.scss";
 
 export default function FeaturePage() {
     const { featureId } = useParams();
+    const navigate = useNavigate();
     const id = Number(featureId);
-    const { execute: loadFeatures, data: features } = useApiRequest(getFeatures);
-    const { execute: loadOpenTasks, data: openTasks } = useApiRequest(getTasks);
+    const { execute: loadFeatures, data: features, error: loadError, clearError: clearLoadError, isLoading } = useApiRequest(getFeatures);
+    const { execute: loadOpenTasks, data: openTasks, error: tasksError, clearError: clearTasksError } = useApiRequest(getTasks);
     const reload = useCallback(async () => {
         if (Number.isNaN(id)) return;
         await Promise.all([loadFeatures(), loadOpenTasks(id, TaskStatus.Open)]);
     }, [id, loadFeatures, loadOpenTasks]);
-    const actions = useFeatureActions(reload);
+    const actions = useFeatureActions(reload, () => navigate("/features"));
 
     useEffect(() => { void reload(); }, [reload]);
 
     const feature = features?.find(item => item.id === id);
-    if (!feature) return <main className={styles.loading}>Загрузка фичи...</main>;
+    if (!feature) return <main className={styles.loading}>{isLoading ? "Загрузка фичи..." : "Фича недоступна"}{loadError && <ErrorModal message={loadError.message} onClose={clearLoadError} />}</main>;
 
     return <main className={styles.page}>
         <article className={styles.card}>
@@ -34,7 +36,9 @@ export default function FeaturePage() {
             </header>
             <div className={styles.body}><h2>Описание</h2><p>{feature.description || "Описание отсутствует"}</p></div>
         </article>
-        <TasksPage featureId={feature.id} />
+        <TasksPage key={feature.id} featureId={feature.id} onChanged={reload} />
         {actions.dialogs}
+        {loadError && <ErrorModal message={loadError.message} onClose={clearLoadError} />}
+        {tasksError && <ErrorModal message={tasksError.message} onClose={clearTasksError} />}
     </main>;
 }

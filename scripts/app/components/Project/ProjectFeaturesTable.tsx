@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FeatureActions from "../Feature/FeatureActions";
 import { FeatureStatus } from "../../api/models/feature/FeatureStatus.ts";
 import { FeatureStatusLabel } from "../../api/models/feature/FeatureModel.ts";
@@ -17,11 +18,12 @@ interface ProjectFeaturesTableProps {
     onDelete: (id: number) => void;
     isBusy: boolean;
     onAdd: () => void;
+    canAdd: boolean;
     onChangeStatus: (id: number, status: FeatureStatus) => void;
 }
 
 export default function ProjectFeaturesTable({ onEdit, onDelete, onChangeStatus, isBusy, features,
-                                                 onAdd
+                                                 onAdd, canAdd
                                              }: ProjectFeaturesTableProps) {
 
     const navigate = useNavigate();
@@ -57,7 +59,7 @@ export default function ProjectFeaturesTable({ onEdit, onDelete, onChangeStatus,
                     <button
                         type="button"
                         className={styles.addButton}
-                        onClick={onAdd}
+                        onClick={onAdd} disabled={!canAdd}
                     >
                         <span className={styles.addIcon}>
                             +
@@ -99,7 +101,7 @@ export default function ProjectFeaturesTable({ onEdit, onDelete, onChangeStatus,
                     {visibleFeatures.map(feature => (
                         <tr key={feature.id} onClick={() => navigate(`/features/${feature.id}`)}>
                             <td>
-                                {feature.name}
+                                <Link to={"/features/" + feature.id} onClick={event => event.stopPropagation()}>{feature.name}</Link>
                             </td>
 
                             <td>

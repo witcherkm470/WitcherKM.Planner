@@ -1,5 +1,5 @@
 ﻿import { useState } from "react";
-import { createPortal } from "react-dom";
+import ModalFrame from "../ModalFrame";
 
 import styles from "./CreateProjectModal.module.scss";
 
@@ -10,20 +10,14 @@ interface CreateProjectModalProps {
     ) => void;
 
     onClose: () => void;
+    isSaving: boolean;
 }
 
-export default function CreateProjectModal({onSave, onClose}: CreateProjectModalProps) {
+export default function CreateProjectModal({ isSaving, onSave, onClose}: CreateProjectModalProps) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
 
-    return createPortal(
-        <div className={styles.overlay}>
-            <section
-                className={styles.modal}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="create-project-title"
-            >
+    return <ModalFrame titleId="create-project-title" onClose={onClose} isBusy={isSaving} className={styles.modal} overlayClassName={styles.overlay}>
                 <header className={styles.header}>
                     <h2 id="create-project-title">
                         Новый проект
@@ -32,7 +26,7 @@ export default function CreateProjectModal({onSave, onClose}: CreateProjectModal
                     <button
                         type="button"
                         className={styles.closeButton}
-                        onClick={onClose}
+                        onClick={onClose} disabled={isSaving}
                         aria-label="Закрыть"
                     >
                         ×
@@ -45,7 +39,7 @@ export default function CreateProjectModal({onSave, onClose}: CreateProjectModal
                             Название
                         </label>
 
-                        <input
+                        <input disabled={isSaving}
                             id="new-project-name"
                             value={name}
                             onChange={event =>
@@ -59,7 +53,7 @@ export default function CreateProjectModal({onSave, onClose}: CreateProjectModal
                             Краткое описание
                         </label>
 
-                        <textarea
+                        <textarea disabled={isSaving}
                             id="new-project-description"
                             value={description}
                             onChange={event =>
@@ -73,7 +67,7 @@ export default function CreateProjectModal({onSave, onClose}: CreateProjectModal
                     <button
                         type="button"
                         className={styles.cancelButton}
-                        onClick={onClose}
+                        onClick={onClose} disabled={isSaving}
                     >
                         Отмена
                     </button>
@@ -81,6 +75,7 @@ export default function CreateProjectModal({onSave, onClose}: CreateProjectModal
                     <button
                         type="button"
                         className={styles.saveButton}
+                        disabled={isSaving || !name.trim()}
                         onClick={() =>
                             onSave(
                                 name,
@@ -91,8 +86,6 @@ export default function CreateProjectModal({onSave, onClose}: CreateProjectModal
                         Создать
                     </button>
                 </footer>
-            </section>
-        </div>,
-        document.body
-    );
+
+    </ModalFrame>;
 }

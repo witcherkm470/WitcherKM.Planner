@@ -18,12 +18,12 @@ public static class TaskOperations
     public record GetById(long TaskId) : IRequest<TaskModel>;
     public class Handler(IUnitOfWorkManager uow, ITaskRepository tasks, IFeatureRepository features) : IRequestHandler<Add,TaskModel>, IRequestHandler<Update,TaskModel>, IRequestHandler<Remove>, IRequestHandler<ChangeStatus,TaskModel>, IRequestHandler<Get,IEnumerable<TaskModel>>, IRequestHandler<GetById,TaskModel>
     {
-        public async Task<TaskModel> Handle(Add r, CancellationToken c) { using var u=uow.Create(); if(await features.GetByIdAsync(r.FeatureId,c) is null) throw new EntityNotFoundException(r.FeatureId,"Feature does not exist"); var x=new TaskItem(r.Name,r.Description,r.FeatureId); await tasks.AddAsync(x,c); await u.CommitAsync(c); return Model(x); }
+        public async Task<TaskModel> Handle(Add r, CancellationToken c) { using var u=uow.Create(); if(await features.GetByIdAsync(r.FeatureId,c) is null) throw new EntityNotFoundException(r.FeatureId,"Feature does not exist"); var x=new TaskItem(r.Name,r.Description,r.FeatureId); await tasks.AddAsync(x,c); await u.CommitAsync(c); return Model(await Find(x.Id,c)); }
         public async Task<TaskModel> Handle(Update r, CancellationToken c) { using var u=uow.Create(); var x=await Find(r.TaskId,c); x.Update(r.Name,r.Description); await u.CommitAsync(c); return Model(x); }
-        public async Task Handle(Remove r, CancellationToken c) { using var u=uow.Create(); var x=await Find(r.TaskId,c); if(x.TaskStatus==PlannerTaskStatus.Done) throw new DomainException("Done task cannot be deleted"); tasks.Remove(x); await u.CommitAsync(c); }
+        public async Task Handle(Remove r, CancellationToken c) { using var u=uow.Create(); var x=await Find(r.TaskId,c); x.EnsureCanDelete(); tasks.Remove(x); await u.CommitAsync(c); }
         public async Task<TaskModel> Handle(ChangeStatus r, CancellationToken c) { using var u=uow.Create(); var x=await Find(r.TaskId,c); switch(r.TaskStatus) { case PlannerTaskStatus.Open: x.SetOpen(); break; case PlannerTaskStatus.InProgress: x.SetInProgress(); break; case PlannerTaskStatus.Done: x.SetDone(); break; default: throw new DomainException("Unsupported task status"); } await u.CommitAsync(c); return Model(x); }
         public async Task<IEnumerable<TaskModel>> Handle(Get r, CancellationToken c) { var all=await tasks.GetAllWithRelationsAsync(r.FeatureId,c); return all.Where(x => !r.TaskStatus.HasValue || x.TaskStatus==r.TaskStatus).Select(Model); }
         public async Task<TaskModel> Handle(GetById r, CancellationToken c) { var x=await tasks.GetByIdWithRelationsAsync(r.TaskId,c) ?? throw new EntityNotFoundException(r.TaskId,"Task does not exist"); return Model(x); }
-        private async Task<TaskItem> Find(long id,CancellationToken c) => await tasks.GetByIdAsync(id,c) ?? throw new EntityNotFoundException(id,"Task does not exist");
+        private async Task<TaskItem> Find(long id,CancellationToken c) => await tasks.GetByIdWithRelationsAsync(id,c) ?? throw new EntityNotFoundException(id,"Task does not exist");
     }
 }
