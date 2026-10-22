@@ -2,6 +2,9 @@
 .idea
 .vs
 .env
+secrets
+deploy/secrets
+deploy/images.env
 **/.env*
 **/*.local
 **/bin

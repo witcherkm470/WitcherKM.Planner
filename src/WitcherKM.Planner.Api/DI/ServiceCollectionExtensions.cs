@@ -31,7 +31,10 @@ public static class ServiceCollectionExtensions
          optional: false,
          reloadOnChange: true);
 
-      // The shared file is loaded after WebApplication defaults; restore environment overrides.
+      // Shared defaults are followed by developer and deployment secrets.
+      if (builder.Environment.IsDevelopment())
+         builder.Configuration.AddUserSecrets<Program>(optional: true);
       builder.Configuration.AddEnvironmentVariables();
+      builder.Configuration.AddKeyPerFile("/run/secrets", optional: true);
    }
 }

@@ -38,32 +38,23 @@ function Assert-CommonRepository {
     }
 }
 
-function Ensure-LicenseKey {
-    $envPath = Join-Path $PSScriptRoot '.env'
-    $contents = if (Test-Path -LiteralPath $envPath) { [IO.File]::ReadAllText($envPath) } else { '' }
-    $keyPattern = '(?m)^[ \t]*MEDIATR_LICENSE_KEY[ \t]*=[ \t]*([^\r\n]*)'
-    $match = [regex]::Match($contents, $keyPattern)
-    if ($match.Success) {
-        $value = $match.Groups[1].Value.Trim().Trim('"').Trim("'")
-        if ($value -and $value -ne 'replace-with-your-license-key') { return }
-    }
+function Ensure-LicenseSecret {
+    $secretDirectory = Join-Path $PSScriptRoot 'secrets'
+    $secretPath = Join-Path $secretDirectory 'MediatR__LicenseKey'
+    if ((Test-Path -LiteralPath $secretPath) -and
+        -not [string]::IsNullOrWhiteSpace([IO.File]::ReadAllText($secretPath))) { return }
 
-    $secureKey = Read-Host 'Enter your MediatR license key (saved only in the local .env)' -AsSecureString
+    $secureKey = Read-Host 'Enter the MediatR license key' -AsSecureString
     $pointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureKey)
-    try { $key = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($pointer) }
+    try { $licenseKey = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($pointer) }
     finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($pointer) }
-    if ([string]::IsNullOrWhiteSpace($key) -or $key -match '[\r\n]') {
+    if ([string]::IsNullOrWhiteSpace($licenseKey) -or $licenseKey -match '[\r\n]') {
         throw 'A non-empty, single-line MediatR license key is required.'
     }
 
-    $keyLine = "MEDIATR_LICENSE_KEY=$key"
-    if ($match.Success) {
-        $contents = $contents.Remove($match.Index, $match.Length).Insert($match.Index, $keyLine)
-    } else {
-        if ($contents -and -not $contents.EndsWith("`n")) { $contents += "`n" }
-        $contents += "$keyLine`n"
-    }
-    [IO.File]::WriteAllText($envPath, $contents, [Text.UTF8Encoding]::new($false))
+    New-Item -ItemType Directory -Path $secretDirectory -Force | Out-Null
+    [IO.File]::WriteAllText($secretPath, $licenseKey, [Text.UTF8Encoding]::new($false))
+    Write-Host 'MediatR license key saved to the ignored secrets directory.'
 }
 
 function Invoke-Checks {
@@ -106,7 +97,7 @@ if ($Mode -eq 'stop') {
 
 Assert-CommonRepository
 Invoke-Docker @('info', '--format', '{{.ServerVersion}}')
-if ($Mode -ne 'check') { Ensure-LicenseKey }
+if ($Mode -ne 'check') { Ensure-LicenseSecret }
 Invoke-Checks
 if ($Mode -eq 'check') { return }
 

@@ -1,0 +1,27 @@
+services:
+  api:
+    image: ${PLANNER_API_IMAGE:?Set PLANNER_API_IMAGE in images.env}
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Data Source=/data/planner.db
+    secrets:
+      - source: mediatr_license_key
+        target: MediatR__LicenseKey
+    volumes:
+      - planner-data:/data
+    restart: unless-stopped
+
+  web:
+    image: ${PLANNER_WEB_IMAGE:?Set PLANNER_WEB_IMAGE in images.env}
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: unless-stopped
+
+volumes:
+  planner-data:
+
+secrets:
+  mediatr_license_key:
+    file: ./secrets/MediatR__LicenseKey

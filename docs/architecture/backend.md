@@ -8,7 +8,7 @@
 - Swashbuckle.AspNetCore 10.2.3 для Swagger;
 - пакеты `WitcherKM.Common.Core`, `WitcherKM.Common.Domain`, `WitcherKM.Common.Orm` версии 0.1.5.
 
-API запускается из `WitcherKM.Planner.Api/Program.cs`. В Development подключаются Swagger и Swagger UI. API загружает `shared/appsettings.json` и при запуске вызывает `Database.MigrateAsync()` через `ApplyDatabaseMigrationsAsync`.
+API запускается из `WitcherKM.Planner.Api/Program.cs`. В Development подключаются Swagger и Swagger UI. API загружает `shared/appsettings.json`, локальные User Secrets и при наличии файловые секреты Docker согласно [configuration.md](configuration.md); при запуске вызывает `Database.MigrateAsync()` через `ApplyDatabaseMigrationsAsync`.
 
 ## Правила текущих слоёв
 

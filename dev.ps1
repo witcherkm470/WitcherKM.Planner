@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('setup', 'api', 'web')]
+    [ValidateSet('setup', 'api', 'web', 'configure')]
     [string]$Mode = 'setup',
     [string]$CommonPath = (Join-Path $PSScriptRoot '..\WitcherKM.Common')
 )
@@ -10,6 +10,20 @@ function Invoke-Checked {
     param([string]$Executable, [string[]]$Arguments)
     & $Executable @Arguments
     if ($LASTEXITCODE -ne 0) { throw "Command failed: $Executable $Arguments" }
+}
+
+function Set-DevelopmentLicense {
+    $secureKey = Read-Host 'Enter the MediatR license key' -AsSecureString
+    $pointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureKey)
+    try { $licenseKey = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($pointer) }
+    finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($pointer) }
+    if ([string]::IsNullOrWhiteSpace($licenseKey) -or $licenseKey -match '[\r\n]') {
+        throw 'A non-empty, single-line MediatR license key is required.'
+    }
+
+    $settings = @{ 'MediatR:LicenseKey' = $licenseKey } | ConvertTo-Json -Compress
+    $settings | & $dotnetExe user-secrets set --project 'src\WitcherKM.Planner.Api'
+    if ($LASTEXITCODE -ne 0) { throw 'Could not save the MediatR key to .NET User Secrets.' }
 }
 
 if ($Mode -ne 'web') {
@@ -25,7 +39,7 @@ if ($Mode -ne 'web') {
     }
     if (-not $dotnetExe) { throw 'Install .NET SDK 10 and reopen your terminal.' }
 }
-if ($Mode -ne 'api') {
+if ($Mode -in @('setup', 'web')) {
     $nodeDirectory = Join-Path $env:ProgramFiles 'nodejs'
     if (Test-Path $nodeDirectory) { $env:Path = "$nodeDirectory;$env:Path" }
     $npmCommand = Get-Command npm.cmd -ErrorAction SilentlyContinue
@@ -51,5 +65,8 @@ switch ($Mode) {
     'web' {
         Push-Location scripts
         try { Invoke-Checked $npmCommand.Source @('run', 'dev') } finally { Pop-Location }
+    }
+    'configure' {
+        Set-DevelopmentLicense
     }
 }

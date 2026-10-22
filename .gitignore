@@ -57,6 +57,9 @@ Thumbs.db
 
 # Local environment configuration
 /.env
+/secrets/
+/deploy/secrets/
+/deploy/images.env
 /scripts/.env
 /scripts/.env.*
 !/scripts/.env.example
