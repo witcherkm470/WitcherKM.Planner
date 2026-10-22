@@ -17,7 +17,8 @@ public static class ServiceCollectionExtensions
 
    public static void AddSharedConfiguration(this WebApplicationBuilder builder)
    {
-      var sharedSettingsPath = Path.GetFullPath(
+      var publishedSettingsPath = Path.Combine(builder.Environment.ContentRootPath, "appsettings.json");
+      var sourceSettingsPath = Path.GetFullPath(
          Path.Combine(
             builder.Environment.ContentRootPath,
             "..",
@@ -26,8 +27,11 @@ public static class ServiceCollectionExtensions
             "appsettings.json"));
 
       builder.Configuration.AddJsonFile(
-         sharedSettingsPath,
+         File.Exists(publishedSettingsPath) ? publishedSettingsPath : sourceSettingsPath,
          optional: false,
          reloadOnChange: true);
+
+      // The shared file is loaded after WebApplication defaults; restore environment overrides.
+      builder.Configuration.AddEnvironmentVariables();
    }
 }

@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+      additional_contexts:
+        common: ../WitcherKM.Common
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Data Source=/data/planner.db
+      MediatR__LicenseKey: ${MEDIATR_LICENSE_KEY:?Set MEDIATR_LICENSE_KEY in .env}
+    volumes:
+      - planner-data:/data
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: unless-stopped
+
+volumes:
+  planner-data:
